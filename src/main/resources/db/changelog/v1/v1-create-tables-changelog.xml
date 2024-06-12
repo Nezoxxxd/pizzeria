@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <!-- ChangeSet for creating the Users table -->
+    <changeSet id="v1-1" author="Voropay Matvey">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="users"/>
+            </not>
+        </preConditions>
+        <createTable tableName="users">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="firstname" type="VARCHAR(50)">
+                <constraints nullable="false" />
+            </column>
+            <column name="lastname" type="VARCHAR(50)">
+                <constraints nullable="false" />
+            </column>
+            <column name="email" type="VARCHAR(50)">
+                <constraints nullable="false" unique="true" />
+            </column>
+            <column name="password" type="VARCHAR(15)">
+                <constraints nullable="false" />
+            </column>
+        </createTable>
+    </changeSet>
+
+    <!-- ChangeSet for creating the Categories table -->
+    <changeSet id="v1-2" author="Voropay Matvey">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="categories"/>
+            </not>
+        </preConditions>
+        <createTable tableName="categories">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="name" type="VARCHAR(100)">
+                <constraints nullable="false" unique="true" />
+            </column>
+        </createTable>
+    </changeSet>
+
+    <!-- ChangeSet for creating the Products table -->
+    <changeSet id="v1-3" author="Voropay Matvey">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="products"/>
+            </not>
+        </preConditions>
+        <createTable tableName="products">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="name" type="VARCHAR(100)">
+                <constraints nullable="false" />
+            </column>
+            <column name="description" type="TEXT" />
+            <column name="price" type="NUMERIC(10, 2)">
+                <constraints nullable="false" />
+            </column>
+            <column name="category_id" type="BIGINT">
+                <constraints nullable="false" />
+            </column>
+        </createTable>
+        <addForeignKeyConstraint baseColumnNames="category_id"
+                                 baseTableName="products"
+                                 constraintName="fk_products_category"
+                                 referencedColumnNames="id"
+                                 referencedTableName="categories"/>
+    </changeSet>
+
+    <!-- ChangeSet for creating the Orders table -->
+    <changeSet id="v1-4" author="Voropay Matvey">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="orders"/>
+            </not>
+        </preConditions>
+        <createTable tableName="orders">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="user_id" type="BIGINT">
+                <constraints nullable="false" />
+            </column>
+            <column name="status" type="VARCHAR(50)">
+                <constraints nullable="false" />
+            </column>
+        </createTable>
+        <addForeignKeyConstraint baseColumnNames="user_id"
+                                 baseTableName="orders"
+                                 constraintName="fk_orders_user"
+                                 referencedColumnNames="id"
+                                 referencedTableName="users"/>
+    </changeSet>
+
+    <!-- ChangeSet for creating the OrderItems table -->
+    <changeSet id="v1-5" author="Voropay Matvey">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="order_items"/>
+            </not>
+        </preConditions>
+        <createTable tableName="order_items">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="order_id" type="BIGINT">
+                <constraints nullable="false" />
+            </column>
+            <column name="product_id" type="BIGINT">
+                <constraints nullable="false" />
+            </column>
+            <column name="quantity" type="INTEGER">
+                <constraints nullable="false" />
+            </column>
+        </createTable>
+        <addForeignKeyConstraint baseColumnNames="order_id"
+                                 baseTableName="order_items"
+                                 constraintName="fk_orderitems_order"
+                                 referencedColumnNames="id"
+                                 referencedTableName="orders"/>
+        <addForeignKeyConstraint baseColumnNames="product_id"
+                                 baseTableName="order_items"
+                                 constraintName="fk_orderitems_product"
+                                 referencedColumnNames="id"
+                                 referencedTableName="products"/>
+    </changeSet>
+</databaseChangeLog>
