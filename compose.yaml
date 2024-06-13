@@ -1,0 +1,22 @@
+version: '3.8'
+services:
+  postgres:
+    container_name: postgres-sql-bsn
+    image: postgres:16
+    env_file: ./.env
+    environment:
+      POSTGRES_USER: $POSTGRESDB_USER
+      POSTGRES_PASSWORD: $POSTGRESDB_ROOT_PASSWORD
+      PGDATA: /var/lib/postgresql/data
+      POSTGRES_DB: $POSTGRESDB_DATABASE
+    volumes:
+      - postgres:/data/postgres
+      - ./docker/db-init:/docker-entrypoint-initdb.d
+    ports:
+      - $POSTGRESDB_LOCAL_PORT:$POSTGRESDB_DOCKER_PORT
+    restart: unless-stopped
+
+volumes:
+  postgres:
+    driver: local
+
