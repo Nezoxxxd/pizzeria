@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <!-- Insert data into Users table -->
+    <changeSet id="1" author="Voropay Matvey">
+        <insert tableName="users">
+            <column name="firstname" value="John"/>
+            <column name="lastname" value="Doe"/>
+            <column name="email" value="john.doe@example.com"/>
+            <column name="password" value="password1"/>
+        </insert>
+        <insert tableName="users">
+            <column name="firstname" value="Jane"/>
+            <column name="lastname" value="Smith"/>
+            <column name="email" value="jane.smith@example.com"/>
+            <column name="password" value="password2"/>
+        </insert>
+    </changeSet>
+
+    <!-- Insert data into Categories table -->
+    <changeSet id="2" author="Voropay Matvey">
+        <insert tableName="categories">
+            <column name="name" value="Pizza"/>
+        </insert>
+        <insert tableName="categories">
+            <column name="name" value="Drinks"/>
+        </insert>
+    </changeSet>
+
+    <!-- Insert data into Products table -->
+    <changeSet id="3" author="Voropay Matvey">
+        <insert tableName="products">
+            <column name="name" value="Margherita"/>
+            <column name="description" value="Classic pizza with tomato sauce and mozzarella"/>
+            <column name="price" valueNumeric="8.99"/>
+            <column name="category_id" value="1"/>
+        </insert>
+        <insert tableName="products">
+            <column name="name" value="Pepperoni"/>
+            <column name="description" value="Spicy pepperoni with mozzarella cheese"/>
+            <column name="price" valueNumeric="9.99"/>
+            <column name="category_id" value="1"/>
+        </insert>
+    </changeSet>
+
+    <!-- Insert data into Orders table -->
+    <changeSet id="4" author="Voropay Matvey">
+        <insert tableName="orders">
+            <column name="user_id" value="1"/>
+            <column name="status" value="PENDING"/>
+        </insert>
+        <insert tableName="orders">
+            <column name="user_id" value="2"/>
+            <column name="status" value="PROCESSING"/>
+        </insert>
+    </changeSet>
+
+    <!-- Insert data into OrderItems table -->
+    <changeSet id="5" author="Voropay Matvey">
+        <insert tableName="order_items">
+            <column name="order_id" value="1"/>
+            <column name="product_id" value="1"/>
+            <column name="quantity" value="2"/>
+        </insert>
+        <insert tableName="order_items">
+            <column name="order_id" value="1"/>
+            <column name="product_id" value="2"/>
+            <column name="quantity" value="1"/>
+        </insert>
+        <insert tableName="order_items">
+            <column name="order_id" value="2"/>
+            <column name="product_id" value="1"/>
+            <column name="quantity" value="3"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>
