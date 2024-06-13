@@ -7,13 +7,13 @@
     <include file="v1/v1-accumulate-changelog.xml" relativeToChangelogFile="true"/>
 
     <changeSet id="v1" author="Voropay Matvey">
-        <tagDatabase tag="after-v1"/>
+        <tagDatabase tag="v1.0"/>
     </changeSet>
 
     <include file="v2/v2-accumulate-changelog.xml" relativeToChangelogFile="true"/>
 
     <changeSet id="v2" author="Voropay Matvey">
-        <tagDatabase tag="after-v2"/>
+        <tagDatabase tag="v2.0"/>
     </changeSet>
 
 </databaseChangeLog>

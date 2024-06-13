@@ -6,7 +6,7 @@
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
 
     <!-- ChangeSet for creating the Users table -->
-    <changeSet id="v1-1" author="Voropay Matvey">
+    <changeSet id="1" author="Voropay Matvey">
         <preConditions onFail="MARK_RAN">
             <not>
                 <tableExists tableName="users"/>
@@ -32,7 +32,7 @@
     </changeSet>
 
     <!-- ChangeSet for creating the Categories table -->
-    <changeSet id="v1-2" author="Voropay Matvey">
+    <changeSet id="2" author="Voropay Matvey">
         <preConditions onFail="MARK_RAN">
             <not>
                 <tableExists tableName="categories"/>
@@ -49,7 +49,7 @@
     </changeSet>
 
     <!-- ChangeSet for creating the Products table -->
-    <changeSet id="v1-3" author="Voropay Matvey">
+    <changeSet id="3" author="Voropay Matvey">
         <preConditions onFail="MARK_RAN">
             <not>
                 <tableExists tableName="products"/>
@@ -78,7 +78,7 @@
     </changeSet>
 
     <!-- ChangeSet for creating the Orders table -->
-    <changeSet id="v1-4" author="Voropay Matvey">
+    <changeSet id="4" author="Voropay Matvey">
         <preConditions onFail="MARK_RAN">
             <not>
                 <tableExists tableName="orders"/>
@@ -103,7 +103,7 @@
     </changeSet>
 
     <!-- ChangeSet for creating the OrderItems table -->
-    <changeSet id="v1-5" author="Voropay Matvey">
+    <changeSet id="5" author="Voropay Matvey">
         <preConditions onFail="MARK_RAN">
             <not>
                 <tableExists tableName="order_items"/>

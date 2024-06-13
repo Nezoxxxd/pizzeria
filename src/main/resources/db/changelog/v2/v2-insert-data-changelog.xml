@@ -6,7 +6,7 @@
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
 
     <!-- Insert data into Users table -->
-    <changeSet id="v2-1" author="Voropay Matvey">
+    <changeSet id="1" author="Voropay Matvey">
         <insert tableName="users">
             <column name="firstname" value="John"/>
             <column name="lastname" value="Doe"/>
@@ -22,7 +22,7 @@
     </changeSet>
 
     <!-- Insert data into Categories table -->
-    <changeSet id="v2-2" author="Voropay Matvey">
+    <changeSet id="2" author="Voropay Matvey">
         <insert tableName="categories">
             <column name="name" value="Pizza"/>
         </insert>
@@ -32,7 +32,7 @@
     </changeSet>
 
     <!-- Insert data into Products table -->
-    <changeSet id="v2-3" author="Voropay Matvey">
+    <changeSet id="3" author="Voropay Matvey">
         <insert tableName="products">
             <column name="name" value="Margherita"/>
             <column name="description" value="Classic pizza with tomato sauce and mozzarella"/>
@@ -48,7 +48,7 @@
     </changeSet>
 
     <!-- Insert data into Orders table -->
-    <changeSet id="v2-4" author="Voropay Matvey">
+    <changeSet id="4" author="Voropay Matvey">
         <insert tableName="orders">
             <column name="user_id" value="1"/>
             <column name="status" value="PENDING"/>
@@ -60,7 +60,7 @@
     </changeSet>
 
     <!-- Insert data into OrderItems table -->
-    <changeSet id="v2-5" author="Voropay Matvey">
+    <changeSet id="5" author="Voropay Matvey">
         <insert tableName="order_items">
             <column name="order_id" value="1"/>
             <column name="product_id" value="1"/>
