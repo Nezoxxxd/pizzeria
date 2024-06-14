@@ -5,11 +5,13 @@ import com.modsen.pizzeria.dto.CategoryDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
-@Mapper
+@Mapper(componentModel = "spring")
 public interface CategoryMapper {
-    OrderMapper INSTANCE = Mappers.getMapper(OrderMapper.class);
 
-    Category toModel(CategoryDTO orderDTO);
+    CategoryMapper INSTANCE = Mappers.getMapper(CategoryMapper.class);
 
-    CategoryDTO toDTO(Category order);
+    CategoryDTO toCategoryDTO(Category category);
+
+    Category toCategory(CategoryDTO categoryDTO);
+
 }

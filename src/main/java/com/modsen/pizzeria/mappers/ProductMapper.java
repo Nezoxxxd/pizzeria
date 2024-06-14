@@ -5,11 +5,14 @@ import com.modsen.pizzeria.dto.ProductDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
-@Mapper
+@Mapper(componentModel = "spring")
 public interface ProductMapper {
-    OrderMapper INSTANCE = Mappers.getMapper(OrderMapper.class);
 
-    Product toModel(ProductDTO productDTO);
+    ProductMapper INSTANCE = Mappers.getMapper(ProductMapper.class);
 
-    ProductDTO toDTO(Product productModel);
+    ProductDTO toProductDTO(Product product);
+
+    Product toProduct(ProductDTO productDTO);
+
 }
+

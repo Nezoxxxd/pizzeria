@@ -1,6 +1,5 @@
 package com.modsen.pizzeria.domain;
 
-
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

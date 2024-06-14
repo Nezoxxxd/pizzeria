@@ -1,13 +1,19 @@
 package com.modsen.pizzeria.dto;
 
-import lombok.Data;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import javax.validation.constraints.NotNull;
 
-import javax.validation.constraints.NotBlank;
+@Getter
+@AllArgsConstructor
+public enum OrderStatusDTO {
 
-@Data
-public class OrderStatusDTO {
+    PENDING("PENDING"),
+    PROCESSING("PROCESSING"),
+    COMPLETED("COMPLETED"),
+    CANCELLED("CANCELLED");
 
-    @NotBlank(message = "Order status is required")
-    private String status;
+    @NotNull(message = "Status is required")
+    private final String status;
 
 }

@@ -5,11 +5,13 @@ import com.modsen.pizzeria.dto.UserDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
-@Mapper
+@Mapper(componentModel = "spring")
 public interface UserMapper {
+
     UserMapper INSTANCE = Mappers.getMapper(UserMapper.class);
 
-    User toModel(UserDTO userDTO);
+    UserDTO toUserDTO(User user);
 
-    UserDTO toDTO(User userModel);
+    User toUser(UserDTO userDTO);
+
 }
