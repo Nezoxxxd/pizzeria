@@ -1,4 +1,4 @@
-package com.modsen.pizzeria.Repository;
+package com.modsen.pizzeria.repository;
 
 import com.modsen.pizzeria.domain.Order;
 import com.modsen.pizzeria.domain.User;
@@ -8,5 +8,5 @@ import java.util.List;
 
 @Repository
 public interface OrderRepository extends JpaRepository<Order, Long> {
-    List<Order> findByUser(User user);
+    List<Order> findAllByUserId(Long userId);
 }

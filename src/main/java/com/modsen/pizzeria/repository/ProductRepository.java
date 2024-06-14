@@ -1,4 +1,4 @@
-package com.modsen.pizzeria.Repository;
+package com.modsen.pizzeria.repository;
 
 import com.modsen.pizzeria.domain.Category;
 import com.modsen.pizzeria.domain.Product;
@@ -8,5 +8,5 @@ import java.util.List;
 
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long> {
-    List<Product> findByCategory(Category category);
+    List<Product> findAllByCategoryId(Long categoryId);
 }

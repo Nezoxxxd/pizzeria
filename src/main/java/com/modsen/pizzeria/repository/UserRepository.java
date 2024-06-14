@@ -1,4 +1,4 @@
-package com.modsen.pizzeria.Repository;
+package com.modsen.pizzeria.repository;
 
 import com.modsen.pizzeria.domain.User;
 import org.springframework.data.jpa.repository.JpaRepository;
