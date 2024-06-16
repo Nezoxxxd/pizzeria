@@ -1,21 +1,18 @@
 package com.modsen.pizzeria.service;
 
-import com.modsen.pizzeria.dto.CategoryDTO;
-
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
+import com.modsen.pizzeria.dto.CategoryDto;
 import java.util.List;
 
 public interface CategoryService {
 
-    CategoryDTO createCategory(@Valid @NotNull CategoryDTO categoryDTO);
+    CategoryDto createCategory(CategoryDto categoryDto);
 
-    CategoryDTO updateCategory(@NotNull Long id, @Valid @NotNull CategoryDTO categoryDTO);
+    CategoryDto updateCategory(Long id, CategoryDto categoryDto);
 
-    void deleteCategory(@NotNull Long id);
+    void deleteCategory(Long id);
 
-    CategoryDTO getCategoryById(@NotNull Long id);
+    CategoryDto getCategoryById(Long id);
 
-    List<CategoryDTO> getAllCategories();
+    List<CategoryDto> getAllCategories();
 
 }

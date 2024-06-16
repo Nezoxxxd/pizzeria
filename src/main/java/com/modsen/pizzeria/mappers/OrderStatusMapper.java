@@ -1,18 +1,14 @@
 package com.modsen.pizzeria.mappers;
 
 import com.modsen.pizzeria.domain.OrderStatus;
-import com.modsen.pizzeria.dto.OrderStatusDTO;
+import com.modsen.pizzeria.dto.OrderStatusDto;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.factory.Mappers;
 
 @Mapper(componentModel = "spring")
 public interface OrderStatusMapper {
 
-    OrderStatusMapper INSTANCE = Mappers.getMapper(OrderStatusMapper.class);
+    OrderStatusDto toOrderStatusDto(OrderStatus orderStatus);
 
-    OrderStatusDTO toOrderStatusDTO(OrderStatus orderStatus);
-
-    OrderStatus toOrderStatus(OrderStatusDTO orderStatusDTO);
+    OrderStatus toOrderStatus(OrderStatusDto orderStatusDto);
 
 }

@@ -1,9 +1,9 @@
-package com.modsen.pizzeria.domain;
+package com.modsen.pizzeria.dto;
 
 import lombok.Getter;
 
 @Getter
-public enum OrderStatus {
+public enum OrderStatusDto {
     PENDING,
     PROCESSING,
     COMPLETED,

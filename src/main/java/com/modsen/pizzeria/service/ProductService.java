@@ -1,21 +1,18 @@
 package com.modsen.pizzeria.service;
 
-import com.modsen.pizzeria.dto.ProductDTO;
-
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
+import com.modsen.pizzeria.dto.ProductDto;
 import java.util.List;
 
 public interface ProductService {
 
-    ProductDTO createProduct(@Valid @NotNull ProductDTO productDTO);
+    ProductDto createProduct(ProductDto productDto);
 
-    ProductDTO updateProduct(@NotNull Long id, @Valid @NotNull ProductDTO productDTO);
+    ProductDto updateProduct(Long id, ProductDto productDto);
 
-    void deleteProduct(@NotNull Long id);
+    void deleteProduct(Long id);
 
-    ProductDTO getProductById(@NotNull Long id);
+    ProductDto getProductById(Long id);
 
-    List<ProductDTO> getAllProducts();
+    List<ProductDto> getAllProducts();
 
 }

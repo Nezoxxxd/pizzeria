@@ -1,18 +1,15 @@
 package com.modsen.pizzeria.mappers;
 
 import com.modsen.pizzeria.domain.Product;
-import com.modsen.pizzeria.dto.ProductDTO;
+import com.modsen.pizzeria.dto.ProductDto;
 import org.mapstruct.Mapper;
-import org.mapstruct.factory.Mappers;
 
 @Mapper(componentModel = "spring")
 public interface ProductMapper {
 
-    ProductMapper INSTANCE = Mappers.getMapper(ProductMapper.class);
+    ProductDto toProductDto(Product product);
 
-    ProductDTO toProductDTO(Product product);
-
-    Product toProduct(ProductDTO productDTO);
+    Product toProduct(ProductDto productDto);
 
 }
 

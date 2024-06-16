@@ -16,9 +16,7 @@
     <properties>
         <java.version>21</java.version>
         <liquibase.version>4.28.0</liquibase.version>
-        <javax-validation.version>2.0.1.Final</javax-validation.version>
         <mapstruct.version>1.4.2.Final</mapstruct.version>
-        <mapstruct-processor.version>1.4.2.Final</mapstruct-processor.version>
     </properties>
     <dependencies>
         <dependency>
@@ -56,9 +54,8 @@
         </dependency>
 
         <dependency>
-            <groupId>javax.validation</groupId>
-            <artifactId>validation-api</artifactId>
-            <version>${javax-validation.version}</version>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-validation</artifactId>
         </dependency>
 
         <dependency>
@@ -70,7 +67,7 @@
         <dependency>
             <groupId>org.mapstruct</groupId>
             <artifactId>mapstruct-processor</artifactId>
-            <version>${mapstruct-processor.version}</version>
+            <version>${mapstruct.version}</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>

@@ -1,21 +1,18 @@
 package com.modsen.pizzeria.service;
 
-import com.modsen.pizzeria.dto.UserDTO;
-
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
+import com.modsen.pizzeria.dto.UserDto;
 import java.util.List;
 
 public interface UserService {
 
-    UserDTO createUser(@Valid @NotNull UserDTO userDTO);
+    UserDto createUser(UserDto userDto);
 
-    UserDTO updateUser(@NotNull Long id, @Valid @NotNull UserDTO userDTO);
+    UserDto updateUser(Long id, UserDto userDto);
 
-    void deleteUser(@NotNull Long id);
+    void deleteUser(Long id);
 
-    UserDTO getUserById(@NotNull Long id);
+    UserDto getUserById(Long id);
 
-    List<UserDTO> getAllUsers();
+    List<UserDto> getAllUsers();
 
 }
