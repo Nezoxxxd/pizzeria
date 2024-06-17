@@ -4,6 +4,8 @@ import com.modsen.pizzeria.domain.Category;
 import com.modsen.pizzeria.dto.response.CategoryResponse;
 import com.modsen.pizzeria.dto.request.CreateCategoryRequest;
 import com.modsen.pizzeria.dto.request.UpdateCategoryRequest;
+import com.modsen.pizzeria.exception.DuplicateResourceException;
+import com.modsen.pizzeria.exception.ResourceNotFoundException;
 import com.modsen.pizzeria.mappers.CategoryMapper;
 import com.modsen.pizzeria.repository.CategoryRepository;
 import com.modsen.pizzeria.service.CategoryService;
@@ -21,7 +23,7 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public CategoryResponse createCategory(CreateCategoryRequest createCategoryRequest) {
         if(categoryRepository.findByName(createCategoryRequest.name()) != null) {
-            // todo DuplicateResourceException
+            throw new DuplicateResourceException("Category with this name already exists");
         }
 
         Category category = categoryMapper.toCategory(createCategoryRequest);
@@ -31,7 +33,7 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public CategoryResponse updateCategory(Long id, UpdateCategoryRequest updateCategoryRequest) {
         Category existingCategory = categoryRepository.findById(id)
-                .orElseThrow();
+                .orElseThrow( () -> new ResourceNotFoundException("Category with id " + id + " does not exist") );
 
         existingCategory.setName(updateCategoryRequest.name());
 
@@ -42,7 +44,7 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public void deleteCategory(Long id) {
         Category category = categoryRepository.findById(id)
-                .orElseThrow();
+                .orElseThrow( () -> new ResourceNotFoundException("Category with id " + id + " does not exist") );
 
         categoryRepository.deleteById(id);
     }
@@ -50,7 +52,7 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public CategoryResponse getCategoryById(Long id) {
         Category category = categoryRepository.findById(id)
-                .orElseThrow();
+                .orElseThrow( () -> new ResourceNotFoundException("Category with id " + id + " does not exist") );
 
         return categoryMapper.toCategoryResponse(category);
     }

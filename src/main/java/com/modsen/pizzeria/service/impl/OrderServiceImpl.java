@@ -5,6 +5,7 @@ import com.modsen.pizzeria.domain.OrderStatus;
 import com.modsen.pizzeria.dto.response.OrderResponse;
 import com.modsen.pizzeria.dto.request.CreateOrderRequest;
 import com.modsen.pizzeria.dto.request.UpdateOrderRequest;
+import com.modsen.pizzeria.exception.ResourceNotFoundException;
 import com.modsen.pizzeria.mappers.OrderMapper;
 import com.modsen.pizzeria.repository.OrderRepository;
 import com.modsen.pizzeria.service.OrderService;
@@ -29,7 +30,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public OrderResponse updateOrder(Long id, UpdateOrderRequest updateOrderRequest) {
         Order existingOrder = orderRepository.findById(id)
-                .orElseThrow();
+                .orElseThrow( () -> new ResourceNotFoundException("Order with id " + id + " does not exist") );
 
         existingOrder.setStatus(updateOrderRequest.status());
         existingOrder.setOrderItems( updateOrderRequest.orderItems());
@@ -41,7 +42,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public void deleteOrder(Long id) {
         Order order = orderRepository.findById(id)
-                .orElseThrow();
+                .orElseThrow( () -> new ResourceNotFoundException("Order with id " + id + " does not exist") );
 
         orderRepository.deleteById(id);
     }
@@ -49,7 +50,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public OrderResponse getOrderById(Long id) {
         Order order = orderRepository.findById(id)
-                .orElseThrow();
+                .orElseThrow( () -> new ResourceNotFoundException("Order with id " + id + " does not exist") );
 
         return orderMapper.toOrderResponse(order);
     }

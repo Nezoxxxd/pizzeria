@@ -4,6 +4,7 @@ import com.modsen.pizzeria.domain.Product;
 import com.modsen.pizzeria.dto.response.ProductResponse;
 import com.modsen.pizzeria.dto.request.CreateProductRequest;
 import com.modsen.pizzeria.dto.request.UpdateProductRequest;
+import com.modsen.pizzeria.exception.ResourceNotFoundException;
 import com.modsen.pizzeria.mappers.ProductMapper;
 import com.modsen.pizzeria.repository.ProductRepository;
 import com.modsen.pizzeria.service.ProductService;
@@ -29,7 +30,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public ProductResponse updateProduct(Long id, UpdateProductRequest updateProductRequest) {
         Product existingProduct = productRepository.findById(id)
-                .orElseThrow();
+                .orElseThrow( () -> new ResourceNotFoundException("Product with id " + id + " does not exist") );
 
         existingProduct.setName(updateProductRequest.name());
         existingProduct.setDescription(updateProductRequest.description());
@@ -43,7 +44,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public void deleteProduct(Long id) {
         Product product = productRepository.findById(id)
-                .orElseThrow();
+                .orElseThrow( () -> new ResourceNotFoundException("Product with id " + id + " does not exist") );
 
         productRepository.deleteById(id);
     }
@@ -51,7 +52,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public ProductResponse getProductById(Long id) {
         Product product = productRepository.findById(id)
-                .orElseThrow();
+                .orElseThrow( () -> new ResourceNotFoundException("Product with id " + id + " does not exist") );
 
         return productMapper.toProductResponse(product);
     }
