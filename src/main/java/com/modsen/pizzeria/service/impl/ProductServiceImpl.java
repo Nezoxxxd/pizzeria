@@ -1,35 +1,65 @@
 package com.modsen.pizzeria.service.impl;
 
+import com.modsen.pizzeria.domain.Product;
 import com.modsen.pizzeria.dto.response.ProductResponse;
 import com.modsen.pizzeria.dto.request.CreateProductRequest;
 import com.modsen.pizzeria.dto.request.UpdateProductRequest;
+import com.modsen.pizzeria.mappers.ProductMapper;
+import com.modsen.pizzeria.repository.ProductRepository;
 import com.modsen.pizzeria.service.ProductService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import java.util.ArrayList;
+
+import java.math.BigDecimal;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class ProductServiceImpl implements ProductService {
 
-    private List<ProductResponse> products = new ArrayList<>();
+    private final ProductRepository productRepository;
+    private final ProductMapper productMapper;
     
     @Override
-    public ProductResponse createProduct(CreateProductRequest createProductRequest) {return null;}
+    public ProductResponse createProduct(CreateProductRequest createProductRequest) {
+        Product product = productMapper.toProduct(createProductRequest);
+        return productMapper.toProductResponse(productRepository.save(product));
+    }
 
     @Override
-    public ProductResponse updateProduct(Long id, UpdateProductRequest updateProductRequest) {return null;}
+    public ProductResponse updateProduct(Long id, UpdateProductRequest updateProductRequest) {
+        Product existingProduct = productRepository.findById(id)
+                .orElseThrow();
+
+        existingProduct.setName(updateProductRequest.name());
+        existingProduct.setDescription(updateProductRequest.description());
+        existingProduct.setPrice( BigDecimal.valueOf(updateProductRequest.price()) );
+        existingProduct.setCategory(updateProductRequest.category());
+
+        Product updatedProduct = productRepository.save(existingProduct);
+        return productMapper.toProductResponse(updatedProduct);
+    }
 
     @Override
-    public void deleteProduct(Long id) {}
+    public void deleteProduct(Long id) {
+        Product product = productRepository.findById(id)
+                .orElseThrow();
+
+        productRepository.deleteById(id);
+    }
 
     @Override
     public ProductResponse getProductById(Long id) {
-        return null;
+        Product product = productRepository.findById(id)
+                .orElseThrow();
+
+        return productMapper.toProductResponse(product);
     }
 
     @Override
     public List<ProductResponse> getAllProducts() {
-        return null;
+        List<Product> products = productRepository.findAll();
+        return products.stream().map(productMapper::toProductResponse).toList();
     }
 
 }
