@@ -1,21 +1,19 @@
 package com.modsen.pizzeria.dto;
 
-import jakarta.validation.constraints.NotNull;
+import com.modsen.pizzeria.domain.OrderItem;
+import com.modsen.pizzeria.domain.OrderStatus;
+import com.modsen.pizzeria.domain.User;
 import java.util.List;
 
 public record OrderResponse(
 
-        @NotNull(message = "{order.id.notnull}")
         Long id,
 
-        @NotNull(message = "{order.user.notnull}")
-        UserResponse user,
+        User user,
 
-        @NotNull(message = "{order.status.notnull}")
-        OrderStatusResponse status,
+        OrderStatus status,
 
-        @NotNull(message = "{order.orderItems.notnull}")
-        List<OrderItemResponse> orderItems
+        List<OrderItem> orderItems
 
 ) {}
 

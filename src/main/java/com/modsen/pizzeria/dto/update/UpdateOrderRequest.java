@@ -1,25 +1,22 @@
 package com.modsen.pizzeria.dto.update;
 
-import com.modsen.pizzeria.dto.OrderItemResponse;
-import com.modsen.pizzeria.dto.OrderStatusResponse;
-import com.modsen.pizzeria.dto.UserResponse;
+import com.modsen.pizzeria.domain.OrderItem;
+import com.modsen.pizzeria.domain.OrderStatus;
+import com.modsen.pizzeria.domain.User;
 import jakarta.validation.constraints.NotNull;
 
 import java.util.List;
 
 public record UpdateOrderRequest(
 
-        @NotNull(message = "{order.id.notnull}")
-        Long id,
-
         @NotNull(message = "{order.user.notnull}")
-        UserResponse user,
+        User user,
 
         @NotNull(message = "{order.status.notnull}")
-        OrderStatusResponse status,
+        OrderStatus status,
 
         @NotNull(message = "{order.orderItems.notnull}")
-        List<OrderItemResponse> orderItems
+        List<OrderItem> orderItems
 
 ) {}
 

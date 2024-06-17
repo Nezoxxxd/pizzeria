@@ -1,6 +1,8 @@
 package com.modsen.pizzeria.service.impl;
 
 import com.modsen.pizzeria.dto.CategoryResponse;
+import com.modsen.pizzeria.dto.create.CreateCategoryRequest;
+import com.modsen.pizzeria.dto.update.UpdateCategoryRequest;
 import com.modsen.pizzeria.service.CategoryService;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -8,27 +10,19 @@ import java.util.List;
 @Service
 public class CategoryServiceImpl implements CategoryService {
 
-    @Override
-    public CategoryResponse createCategory(CategoryResponse categoryResponse) {
-        return null;
-    }
 
     @Override
-    public CategoryResponse updateCategory(Long id, CategoryResponse categoryResponse) {
-        return null;
-    }
+    public CategoryResponse createCategory(CreateCategoryRequest createCategoryRequest) {return null;}
+
+    @Override
+    public CategoryResponse updateCategory(Long id, UpdateCategoryRequest updateCategoryRequest) {return null;}
 
     @Override
     public void deleteCategory(Long id) {}
 
     @Override
-    public CategoryResponse getCategoryById(Long id) {
-        return null;
-    }
+    public CategoryResponse getCategoryById(Long id) {return null;}
 
     @Override
-    public List<CategoryResponse> getAllCategories() {
-        return null;
-    }
-
+    public List<CategoryResponse> getAllCategories() {return null;}
 }

@@ -5,9 +5,6 @@ import jakarta.validation.constraints.Size;
 
 public record UpdateCategoryRequest(
 
-        @NotNull(message = "{category.id.notnull}")
-        Long id,
-
         @NotNull(message = "{category.name.notnull}")
         @Size(min = 2, max = 100, message = "{category.name.size}")
         String name

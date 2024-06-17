@@ -1,6 +1,8 @@
 package com.modsen.pizzeria.service.impl;
 
 import com.modsen.pizzeria.dto.OrderResponse;
+import com.modsen.pizzeria.dto.create.CreateOrderRequest;
+import com.modsen.pizzeria.dto.update.UpdateOrderRequest;
 import com.modsen.pizzeria.service.OrderService;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -8,15 +10,12 @@ import java.util.List;
 @Service
 public class OrderServiceImpl implements OrderService {
 
-    @Override
-    public OrderResponse createOrder(OrderResponse orderResponse) {
-        return null;
-    }
 
     @Override
-    public OrderResponse updateOrder(Long id, OrderResponse orderResponse) {
-        return null;
-    }
+    public OrderResponse createOrder(CreateOrderRequest createOrderRequest) {return null;}
+
+    @Override
+    public OrderResponse updateOrder(Long id, UpdateOrderRequest updateOrderRequest) {return null;}
 
     @Override
     public void deleteOrder(Long id) {}
