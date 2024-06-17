@@ -1,8 +1,8 @@
 package com.modsen.pizzeria.service;
 
-import com.modsen.pizzeria.dto.ProductResponse;
-import com.modsen.pizzeria.dto.create.CreateProductRequest;
-import com.modsen.pizzeria.dto.update.UpdateProductRequest;
+import com.modsen.pizzeria.dto.response.ProductResponse;
+import com.modsen.pizzeria.dto.request.CreateProductRequest;
+import com.modsen.pizzeria.dto.request.UpdateProductRequest;
 
 import java.util.List;
 

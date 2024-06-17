@@ -1,10 +1,10 @@
-package com.modsen.pizzeria.dto.update;
+package com.modsen.pizzeria.dto.request;
 
 import com.modsen.pizzeria.domain.Category;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 
-public record UpdateProductRequest(
+public record CreateProductRequest(
 
         @NotNull(message = "{product.name.notnull}")
         String name,

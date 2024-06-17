@@ -1,9 +1,9 @@
 package com.modsen.pizzeria.mappers;
 
 import com.modsen.pizzeria.domain.Category;
-import com.modsen.pizzeria.dto.CategoryResponse;
-import com.modsen.pizzeria.dto.create.CreateCategoryRequest;
-import com.modsen.pizzeria.dto.update.UpdateCategoryRequest;
+import com.modsen.pizzeria.dto.response.CategoryResponse;
+import com.modsen.pizzeria.dto.request.CreateCategoryRequest;
+import com.modsen.pizzeria.dto.request.UpdateCategoryRequest;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")

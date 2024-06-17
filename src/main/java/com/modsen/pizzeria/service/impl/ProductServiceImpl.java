@@ -1,8 +1,8 @@
 package com.modsen.pizzeria.service.impl;
 
-import com.modsen.pizzeria.dto.ProductResponse;
-import com.modsen.pizzeria.dto.create.CreateProductRequest;
-import com.modsen.pizzeria.dto.update.UpdateProductRequest;
+import com.modsen.pizzeria.dto.response.ProductResponse;
+import com.modsen.pizzeria.dto.request.CreateProductRequest;
+import com.modsen.pizzeria.dto.request.UpdateProductRequest;
 import com.modsen.pizzeria.service.ProductService;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
@@ -12,8 +12,7 @@ import java.util.List;
 public class ProductServiceImpl implements ProductService {
 
     private List<ProductResponse> products = new ArrayList<>();
-
-
+    
     @Override
     public ProductResponse createProduct(CreateProductRequest createProductRequest) {return null;}
 

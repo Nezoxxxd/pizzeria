@@ -1,8 +1,8 @@
 package com.modsen.pizzeria.service.impl;
 
-import com.modsen.pizzeria.dto.OrderResponse;
-import com.modsen.pizzeria.dto.create.CreateOrderRequest;
-import com.modsen.pizzeria.dto.update.UpdateOrderRequest;
+import com.modsen.pizzeria.dto.response.OrderResponse;
+import com.modsen.pizzeria.dto.request.CreateOrderRequest;
+import com.modsen.pizzeria.dto.request.UpdateOrderRequest;
 import com.modsen.pizzeria.service.OrderService;
 import org.springframework.stereotype.Service;
 import java.util.List;

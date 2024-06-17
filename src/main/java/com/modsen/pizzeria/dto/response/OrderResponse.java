@@ -1,4 +1,4 @@
-package com.modsen.pizzeria.dto;
+package com.modsen.pizzeria.dto.response;
 
 import com.modsen.pizzeria.domain.OrderItem;
 import com.modsen.pizzeria.domain.OrderStatus;

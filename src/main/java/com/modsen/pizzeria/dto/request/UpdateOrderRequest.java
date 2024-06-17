@@ -1,4 +1,4 @@
-package com.modsen.pizzeria.dto.update;
+package com.modsen.pizzeria.dto.request;
 
 import com.modsen.pizzeria.domain.OrderItem;
 import com.modsen.pizzeria.domain.OrderStatus;
@@ -8,9 +8,6 @@ import jakarta.validation.constraints.NotNull;
 import java.util.List;
 
 public record UpdateOrderRequest(
-
-        @NotNull(message = "{order.user.notnull}")
-        User user,
 
         @NotNull(message = "{order.status.notnull}")
         OrderStatus status,

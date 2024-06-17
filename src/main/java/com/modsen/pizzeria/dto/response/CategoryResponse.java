@@ -1,4 +1,4 @@
-package com.modsen.pizzeria.dto;
+package com.modsen.pizzeria.dto.response;
 
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;

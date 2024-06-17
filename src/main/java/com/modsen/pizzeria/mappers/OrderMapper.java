@@ -1,9 +1,9 @@
 package com.modsen.pizzeria.mappers;
 
 import com.modsen.pizzeria.domain.Order;
-import com.modsen.pizzeria.dto.OrderResponse;
-import com.modsen.pizzeria.dto.create.CreateOrderRequest;
-import com.modsen.pizzeria.dto.update.UpdateOrderRequest;
+import com.modsen.pizzeria.dto.response.OrderResponse;
+import com.modsen.pizzeria.dto.request.CreateOrderRequest;
+import com.modsen.pizzeria.dto.request.UpdateOrderRequest;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")

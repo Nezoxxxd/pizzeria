@@ -1,9 +1,9 @@
-package com.modsen.pizzeria.dto.update;
+package com.modsen.pizzeria.dto.request;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 
-public record UpdateUserRequest(
+public record CreateUserRequest(
 
         @NotNull(message = "{user.firstname.notnull}")
         String firstname,
