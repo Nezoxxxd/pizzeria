@@ -1,18 +1,21 @@
 package com.modsen.pizzeria.service;
 
-import com.modsen.pizzeria.dto.ProductDto;
+import com.modsen.pizzeria.dto.response.ProductResponse;
+import com.modsen.pizzeria.dto.request.CreateProductRequest;
+import com.modsen.pizzeria.dto.request.UpdateProductRequest;
+
 import java.util.List;
 
 public interface ProductService {
 
-    ProductDto createProduct(ProductDto productDto);
+    ProductResponse createProduct(CreateProductRequest createProductRequest);
 
-    ProductDto updateProduct(Long id, ProductDto productDto);
+    ProductResponse updateProduct(Long id, UpdateProductRequest updateProductRequest);
 
     void deleteProduct(Long id);
 
-    ProductDto getProductById(Long id);
+    ProductResponse getProductById(Long id);
 
-    List<ProductDto> getAllProducts();
+    List<ProductResponse> getAllProducts();
 
 }

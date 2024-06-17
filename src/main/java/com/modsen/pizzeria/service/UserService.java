@@ -1,18 +1,21 @@
 package com.modsen.pizzeria.service;
 
-import com.modsen.pizzeria.dto.UserDto;
+import com.modsen.pizzeria.dto.response.UserResponse;
+import com.modsen.pizzeria.dto.request.CreateUserRequest;
+import com.modsen.pizzeria.dto.request.UpdateUserRequest;
+
 import java.util.List;
 
 public interface UserService {
 
-    UserDto createUser(UserDto userDto);
+    UserResponse createUser(CreateUserRequest createUserRequest);
 
-    UserDto updateUser(Long id, UserDto userDto);
+    UserResponse updateUser(Long id, UpdateUserRequest updateUserRequest);
 
     void deleteUser(Long id);
 
-    UserDto getUserById(Long id);
+    UserResponse getUserById(Long id);
 
-    List<UserDto> getAllUsers();
+    List<UserResponse> getAllUsers();
 
 }

@@ -1,15 +1,19 @@
 package com.modsen.pizzeria.mappers;
 
 import com.modsen.pizzeria.domain.Order;
-import com.modsen.pizzeria.dto.OrderDto;
+import com.modsen.pizzeria.dto.response.OrderResponse;
+import com.modsen.pizzeria.dto.request.CreateOrderRequest;
+import com.modsen.pizzeria.dto.request.UpdateOrderRequest;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
 public interface OrderMapper {
 
-    OrderDto toOrderDto(Order order);
+    OrderResponse toOrderResponse(Order order);
 
-    Order toOrder(OrderDto orderDto);
+    Order toOrder(OrderResponse orderResponse);
+    Order toOrder(UpdateOrderRequest updateOrderRequest);
+    Order toOrder(CreateOrderRequest createOrderRequest);
 
 }
 

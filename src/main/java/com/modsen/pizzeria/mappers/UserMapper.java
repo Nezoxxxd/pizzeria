@@ -1,14 +1,18 @@
 package com.modsen.pizzeria.mappers;
 
 import com.modsen.pizzeria.domain.User;
-import com.modsen.pizzeria.dto.UserDto;
+import com.modsen.pizzeria.dto.response.UserResponse;
+import com.modsen.pizzeria.dto.request.CreateUserRequest;
+import com.modsen.pizzeria.dto.request.UpdateUserRequest;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
 public interface UserMapper {
 
-    UserDto toUserDto(User user);
+    UserResponse toUserResponse(User user);
 
-    User toUser(UserDto userDto);
+    User toUser(UserResponse userResponse);
+    User toUser(CreateUserRequest createUserRequest);
+    User toUser(UpdateUserRequest updateUserRequest);
 
 }

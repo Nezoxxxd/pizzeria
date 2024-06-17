@@ -1,18 +1,21 @@
 package com.modsen.pizzeria.service;
 
-import com.modsen.pizzeria.dto.OrderDto;
+import com.modsen.pizzeria.dto.response.OrderResponse;
+import com.modsen.pizzeria.dto.request.CreateOrderRequest;
+import com.modsen.pizzeria.dto.request.UpdateOrderRequest;
+
 import java.util.List;
 
 public interface OrderService {
 
-    OrderDto createOrder(OrderDto orderDto);
+    OrderResponse createOrder(CreateOrderRequest createOrderRequest);
 
-    OrderDto updateOrder(Long id, OrderDto orderDto);
+    OrderResponse updateOrder(Long id, UpdateOrderRequest updateOrderRequest);
 
     void deleteOrder(Long id);
 
-    OrderDto getOrderById(Long id);
+    OrderResponse getOrderById(Long id);
 
-    List<OrderDto> getAllOrders();
+    List<OrderResponse> getAllOrders();
 
 }
