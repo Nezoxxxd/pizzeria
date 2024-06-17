@@ -1,6 +1,6 @@
 package com.modsen.pizzeria.service.impl;
 
-import com.modsen.pizzeria.dto.OrderDto;
+import com.modsen.pizzeria.dto.OrderResponse;
 import com.modsen.pizzeria.service.OrderService;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -9,12 +9,12 @@ import java.util.List;
 public class OrderServiceImpl implements OrderService {
 
     @Override
-    public OrderDto createOrder(OrderDto orderDto) {
+    public OrderResponse createOrder(OrderResponse orderResponse) {
         return null;
     }
 
     @Override
-    public OrderDto updateOrder(Long id, OrderDto orderDto) {
+    public OrderResponse updateOrder(Long id, OrderResponse orderResponse) {
         return null;
     }
 
@@ -22,12 +22,12 @@ public class OrderServiceImpl implements OrderService {
     public void deleteOrder(Long id) {}
 
     @Override
-    public OrderDto getOrderById(Long id) {
+    public OrderResponse getOrderById(Long id) {
         return null;
     }
 
     @Override
-    public List<OrderDto> getAllOrders() {
+    public List<OrderResponse> getAllOrders() {
         return null;
     }
 

@@ -5,7 +5,7 @@ import com.modsen.pizzeria.domain.Product;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 
-public record OrderItemDto(
+public record OrderItemResponse(
 
         @NotNull(message = "{orderItem.id.notnull}")
         Long id,

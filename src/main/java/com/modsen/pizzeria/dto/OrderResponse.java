@@ -3,19 +3,19 @@ package com.modsen.pizzeria.dto;
 import jakarta.validation.constraints.NotNull;
 import java.util.List;
 
-public record OrderDto(
+public record OrderResponse(
 
         @NotNull(message = "{order.id.notnull}")
         Long id,
 
         @NotNull(message = "{order.user.notnull}")
-        UserDto user,
+        UserResponse user,
 
         @NotNull(message = "{order.status.notnull}")
-        OrderStatusDto status,
+        OrderStatusResponse status,
 
         @NotNull(message = "{order.orderItems.notnull}")
-        List<OrderItemDto> orderItems
+        List<OrderItemResponse> orderItems
 
 ) {}
 

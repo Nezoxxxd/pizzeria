@@ -1,6 +1,6 @@
 package com.modsen.pizzeria.dto;
 
-public enum OrderStatusDto {
+public enum OrderStatusResponse {
     PENDING,
     PROCESSING,
     COMPLETED,

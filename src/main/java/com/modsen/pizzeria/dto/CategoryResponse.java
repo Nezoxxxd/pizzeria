@@ -3,7 +3,7 @@ package com.modsen.pizzeria.dto;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
-public record CategoryDto(
+public record CategoryResponse(
 
         @NotNull(message = "{category.id.notnull}")
         Long id,

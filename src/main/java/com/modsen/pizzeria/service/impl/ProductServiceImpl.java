@@ -1,6 +1,6 @@
 package com.modsen.pizzeria.service.impl;
 
-import com.modsen.pizzeria.dto.ProductDto;
+import com.modsen.pizzeria.dto.ProductResponse;
 import com.modsen.pizzeria.service.ProductService;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
@@ -9,15 +9,15 @@ import java.util.List;
 @Service
 public class ProductServiceImpl implements ProductService {
 
-    private List<ProductDto> products = new ArrayList<>();
+    private List<ProductResponse> products = new ArrayList<>();
 
     @Override
-    public ProductDto createProduct(ProductDto productDto) {
+    public ProductResponse createProduct(ProductResponse productResponse) {
         return null;
     }
 
     @Override
-    public ProductDto updateProduct(Long id, ProductDto productDto) {
+    public ProductResponse updateProduct(Long id, ProductResponse productResponse) {
         return null;
     }
 
@@ -25,12 +25,12 @@ public class ProductServiceImpl implements ProductService {
     public void deleteProduct(Long id) {}
 
     @Override
-    public ProductDto getProductById(Long id) {
+    public ProductResponse getProductById(Long id) {
         return null;
     }
 
     @Override
-    public List<ProductDto> getAllProducts() {
+    public List<ProductResponse> getAllProducts() {
         return null;
     }
 

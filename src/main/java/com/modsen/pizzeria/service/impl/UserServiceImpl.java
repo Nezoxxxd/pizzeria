@@ -1,6 +1,6 @@
 package com.modsen.pizzeria.service.impl;
 
-import com.modsen.pizzeria.dto.UserDto;
+import com.modsen.pizzeria.dto.UserResponse;
 import com.modsen.pizzeria.service.UserService;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -9,12 +9,12 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
 
     @Override
-    public UserDto createUser(UserDto userDto) {
+    public UserResponse createUser(UserResponse userResponse) {
         return null;
     }
 
     @Override
-    public UserDto updateUser(Long id, UserDto userDto) {
+    public UserResponse updateUser(Long id, UserResponse userResponse) {
         return null;
     }
 
@@ -22,12 +22,12 @@ public class UserServiceImpl implements UserService {
     public void deleteUser(Long id) {}
 
     @Override
-    public UserDto getUserById(Long id) {
+    public UserResponse getUserById(Long id) {
         return null;
     }
 
     @Override
-    public List<UserDto> getAllUsers() {
+    public List<UserResponse> getAllUsers() {
         return null;
     }
 

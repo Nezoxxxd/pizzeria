@@ -1,18 +1,18 @@
 package com.modsen.pizzeria.service;
 
-import com.modsen.pizzeria.dto.CategoryDto;
+import com.modsen.pizzeria.dto.CategoryResponse;
 import java.util.List;
 
 public interface CategoryService {
 
-    CategoryDto createCategory(CategoryDto categoryDto);
+    CategoryResponse createCategory(CategoryResponse categoryResponse);
 
-    CategoryDto updateCategory(Long id, CategoryDto categoryDto);
+    CategoryResponse updateCategory(Long id, CategoryResponse categoryResponse);
 
     void deleteCategory(Long id);
 
-    CategoryDto getCategoryById(Long id);
+    CategoryResponse getCategoryById(Long id);
 
-    List<CategoryDto> getAllCategories();
+    List<CategoryResponse> getAllCategories();
 
 }
