@@ -1,33 +1,31 @@
 package com.modsen.pizzeria.controllers;
 
 import com.modsen.pizzeria.dto.request.CreateProductRequest;
-import com.modsen.pizzeria.dto.request.CreateUserRequest;
 import com.modsen.pizzeria.dto.request.UpdateProductRequest;
-import com.modsen.pizzeria.dto.request.UpdateUserRequest;
 import com.modsen.pizzeria.dto.response.ProductResponse;
-import com.modsen.pizzeria.dto.response.UserResponse;
 import com.modsen.pizzeria.service.impl.ProductServiceImpl;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Controller
+@RestController
 @RequiredArgsConstructor
 @RequestMapping("/product")
 public class ProductController {
-    ProductServiceImpl productService;
+
+    private final ProductServiceImpl productService;
 
     @PostMapping
-    @ResponseStatus(HttpStatus.OK)
-    public ProductResponse createProduct(@RequestBody CreateProductRequest createProductRequest){return productService.createProduct(createProductRequest);}
+    @ResponseStatus(HttpStatus.CREATED)
+    public ProductResponse createProduct(@RequestBody @Valid CreateProductRequest createProductRequest){return productService.createProduct(createProductRequest);}
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public ProductResponse updateProduct(@PathVariable Long id, @RequestBody UpdateProductRequest updateProductRequest){return productService.updateProduct(id,updateProductRequest);}
+    public ProductResponse updateProduct(@PathVariable Long id, @RequestBody @Valid UpdateProductRequest updateProductRequest){return productService.updateProduct(id,updateProductRequest);}
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)

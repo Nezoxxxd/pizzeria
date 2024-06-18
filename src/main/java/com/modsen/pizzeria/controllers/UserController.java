@@ -4,6 +4,7 @@ import com.modsen.pizzeria.dto.request.CreateUserRequest;
 import com.modsen.pizzeria.dto.request.UpdateUserRequest;
 import com.modsen.pizzeria.dto.response.UserResponse;
 import com.modsen.pizzeria.service.impl.UserServiceImpl;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -11,20 +12,20 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Controller
+@RestController
 @RequiredArgsConstructor
 @RequestMapping("/user")
 public class UserController {
 
-    UserServiceImpl userService;
+    private final UserServiceImpl userService;
 
     @PostMapping
-    @ResponseStatus(HttpStatus.OK)
-    public UserResponse createUser(@RequestBody CreateUserRequest createUserRequest){return userService.createUser(createUserRequest);}
+    @ResponseStatus(HttpStatus.CREATED)
+    public UserResponse createUser(@RequestBody @Valid CreateUserRequest createUserRequest){return userService.createUser(createUserRequest);}
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public UserResponse updateUser(@PathVariable Long id, @RequestBody UpdateUserRequest updateUserRequest){return userService.updateUser(id,updateUserRequest);}
+    public UserResponse updateUser(@PathVariable Long id, @RequestBody @Valid UpdateUserRequest updateUserRequest){return userService.updateUser(id,updateUserRequest);}
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
