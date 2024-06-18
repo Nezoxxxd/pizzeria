@@ -1,5 +1,6 @@
 package com.modsen.pizzeria.service;
 
+import com.modsen.pizzeria.domain.OrderStatus;
 import com.modsen.pizzeria.dto.response.OrderResponse;
 import com.modsen.pizzeria.dto.request.CreateOrderRequest;
 import com.modsen.pizzeria.dto.request.UpdateOrderRequest;
@@ -18,4 +19,5 @@ public interface OrderService {
 
     List<OrderResponse> getAllOrders();
 
+    OrderResponse updateOrderStatus(Long id, OrderStatus newOrderStatus);
 }

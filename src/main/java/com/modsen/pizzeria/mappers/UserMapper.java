@@ -5,8 +5,11 @@ import com.modsen.pizzeria.dto.response.UserResponse;
 import com.modsen.pizzeria.dto.request.CreateUserRequest;
 import com.modsen.pizzeria.dto.request.UpdateUserRequest;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.MappingConstants;
+import org.mapstruct.MappingTarget;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public interface UserMapper {
 
     UserResponse toUserResponse(User user);
@@ -15,4 +18,6 @@ public interface UserMapper {
     User toUser(CreateUserRequest createUserRequest);
     User toUser(UpdateUserRequest updateUserRequest);
 
+    @Mapping(target = "id", ignore = true)
+    void updateUserFromRequest(UpdateUserRequest updateUserRequest, @MappingTarget User user);
 }
