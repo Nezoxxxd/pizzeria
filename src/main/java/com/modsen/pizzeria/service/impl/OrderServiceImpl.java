@@ -5,7 +5,7 @@ import com.modsen.pizzeria.domain.OrderStatus;
 import com.modsen.pizzeria.dto.response.OrderResponse;
 import com.modsen.pizzeria.dto.request.CreateOrderRequest;
 import com.modsen.pizzeria.dto.request.UpdateOrderRequest;
-import com.modsen.pizzeria.error.ErrorMessage;
+import com.modsen.pizzeria.error.ErrorMessages;
 import com.modsen.pizzeria.exception.InvalidOrderStatusException;
 import com.modsen.pizzeria.exception.ResourceNotFoundException;
 import com.modsen.pizzeria.mappers.OrderMapper;
@@ -70,18 +70,18 @@ public class OrderServiceImpl implements OrderService {
 
     private Order findOrderByIdOrThrow(Long id) {
         return orderRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException(String.format(ErrorMessage.RESOURCE_NOT_FOUND_MESSAGE, "Order", id)));
+                .orElseThrow(() -> new ResourceNotFoundException(String.format(ErrorMessages.RESOURCE_NOT_FOUND_MESSAGE, "Order", id)));
     }
 
     private void validateStatusChange(OrderStatus orderStatus, OrderStatus newOrderStatus) {
         if (orderStatus == OrderStatus.COMPLETED || orderStatus == OrderStatus.CANCELLED) {
-            throw new InvalidOrderStatusException(ErrorMessage.COMPLETED_OR_CANCELLED_STATUS_MESSAGE);
+            throw new InvalidOrderStatusException(ErrorMessages.COMPLETED_OR_CANCELLED_STATUS_MESSAGE);
         }
         if (orderStatus == OrderStatus.PENDING && newOrderStatus != OrderStatus.PROCESSING) {
-            throw new InvalidOrderStatusException(ErrorMessage.FROM_PENDING_TO_PROCESSING_STATUS_MESSAGE);
+            throw new InvalidOrderStatusException(ErrorMessages.FROM_PENDING_TO_PROCESSING_STATUS_MESSAGE);
         }
         if (orderStatus == OrderStatus.PROCESSING && newOrderStatus == OrderStatus.PENDING) {
-            throw new InvalidOrderStatusException(ErrorMessage.FROM_PROCESSING_TO_COMPLETED_OR_CANCELLED_STATUS_MESSAGE);
+            throw new InvalidOrderStatusException(ErrorMessages.FROM_PROCESSING_TO_COMPLETED_OR_CANCELLED_STATUS_MESSAGE);
         }
     }
 }

@@ -4,7 +4,7 @@ import com.modsen.pizzeria.domain.User;
 import com.modsen.pizzeria.dto.response.UserResponse;
 import com.modsen.pizzeria.dto.request.CreateUserRequest;
 import com.modsen.pizzeria.dto.request.UpdateUserRequest;
-import com.modsen.pizzeria.error.ErrorMessage;
+import com.modsen.pizzeria.error.ErrorMessages;
 import com.modsen.pizzeria.exception.DuplicateResourceException;
 import com.modsen.pizzeria.exception.ResourceNotFoundException;
 import com.modsen.pizzeria.mappers.UserMapper;
@@ -61,12 +61,12 @@ public class UserServiceImpl implements UserService {
 
     private User findUserByIdOrThrow(Long id) {
         return userRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException(String.format(ErrorMessage.RESOURCE_NOT_FOUND_MESSAGE, "User", id)));
+                .orElseThrow(() -> new ResourceNotFoundException(String.format(ErrorMessages.RESOURCE_NOT_FOUND_MESSAGE, "User", id)));
     }
 
     private void checkUserExistence(String email) {
         if(userRepository.existsByEmail(email)) {
-            throw new DuplicateResourceException(String.format(ErrorMessage.DUPLICATE_RESOURCE_MESSAGE, "User", "email"));
+            throw new DuplicateResourceException(String.format(ErrorMessages.DUPLICATE_RESOURCE_MESSAGE, "User", "email"));
         }
     }
 }

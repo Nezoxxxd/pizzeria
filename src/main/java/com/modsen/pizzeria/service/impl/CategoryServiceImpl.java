@@ -4,7 +4,7 @@ import com.modsen.pizzeria.domain.Category;
 import com.modsen.pizzeria.dto.response.CategoryResponse;
 import com.modsen.pizzeria.dto.request.CreateCategoryRequest;
 import com.modsen.pizzeria.dto.request.UpdateCategoryRequest;
-import com.modsen.pizzeria.error.ErrorMessage;
+import com.modsen.pizzeria.error.ErrorMessages;
 import com.modsen.pizzeria.exception.DuplicateResourceException;
 import com.modsen.pizzeria.exception.ResourceNotFoundException;
 import com.modsen.pizzeria.mappers.CategoryMapper;
@@ -59,12 +59,12 @@ public class CategoryServiceImpl implements CategoryService {
 
     private Category findCategoryByIdOrThrow(Long id) {
         return categoryRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException(String.format(ErrorMessage.RESOURCE_NOT_FOUND_MESSAGE, "Category", id)));
+                .orElseThrow(() -> new ResourceNotFoundException(String.format(ErrorMessages.RESOURCE_NOT_FOUND_MESSAGE, "Category", id)));
     }
 
     private void checkCategoryExistence(String categoryName) {
         if(categoryRepository.existsByName(categoryName)) {
-            throw new DuplicateResourceException(String.format(ErrorMessage.DUPLICATE_RESOURCE_MESSAGE, "Category", "name"));
+            throw new DuplicateResourceException(String.format(ErrorMessages.DUPLICATE_RESOURCE_MESSAGE, "Category", "name"));
         }
     }
 }

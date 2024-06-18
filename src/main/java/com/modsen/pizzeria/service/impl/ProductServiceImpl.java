@@ -4,7 +4,7 @@ import com.modsen.pizzeria.domain.Product;
 import com.modsen.pizzeria.dto.response.ProductResponse;
 import com.modsen.pizzeria.dto.request.CreateProductRequest;
 import com.modsen.pizzeria.dto.request.UpdateProductRequest;
-import com.modsen.pizzeria.error.ErrorMessage;
+import com.modsen.pizzeria.error.ErrorMessages;
 import com.modsen.pizzeria.exception.ResourceNotFoundException;
 import com.modsen.pizzeria.mappers.ProductMapper;
 import com.modsen.pizzeria.repository.ProductRepository;
@@ -57,6 +57,6 @@ public class ProductServiceImpl implements ProductService {
 
     private Product findProductByIdOrThrow(Long id) {
         return productRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException(String.format(ErrorMessage.RESOURCE_NOT_FOUND_MESSAGE, "Product", id)));
+                .orElseThrow(() -> new ResourceNotFoundException(String.format(ErrorMessages.RESOURCE_NOT_FOUND_MESSAGE, "Product", id)));
     }
 }
