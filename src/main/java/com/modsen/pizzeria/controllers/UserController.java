@@ -3,7 +3,7 @@ package com.modsen.pizzeria.controllers;
 import com.modsen.pizzeria.dto.request.CreateUserRequest;
 import com.modsen.pizzeria.dto.request.UpdateUserRequest;
 import com.modsen.pizzeria.dto.response.UserResponse;
-import com.modsen.pizzeria.service.impl.UserServiceImpl;
+import com.modsen.pizzeria.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -13,18 +13,25 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/user")
+@RequestMapping("api/v1/user")
 public class UserController {
 
-    private final UserServiceImpl userService;
+    private final UserService userService;
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public UserResponse createUser(@RequestBody @Valid CreateUserRequest createUserRequest){return userService.createUser(createUserRequest);}
+    public UserResponse createUser(@RequestBody @Valid CreateUserRequest createUserRequest){
+        return userService.createUser(createUserRequest);
+    }
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public UserResponse updateUser(@PathVariable Long id, @RequestBody @Valid UpdateUserRequest updateUserRequest){return userService.updateUser(id,updateUserRequest);}
+    public UserResponse updateUser(
+            @PathVariable Long id,
+            @RequestBody @Valid UpdateUserRequest updateUserRequest
+    ){
+        return userService.updateUser(id,updateUserRequest);
+    }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
