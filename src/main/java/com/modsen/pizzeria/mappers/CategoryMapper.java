@@ -5,6 +5,8 @@ import com.modsen.pizzeria.dto.response.CategoryResponse;
 import com.modsen.pizzeria.dto.request.CreateCategoryRequest;
 import com.modsen.pizzeria.dto.request.UpdateCategoryRequest;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
 
 @Mapper(componentModel = "spring")
 public interface CategoryMapper {
@@ -15,4 +17,6 @@ public interface CategoryMapper {
     Category toCategory(CreateCategoryRequest createCategoryRequest);
     Category toCategory(UpdateCategoryRequest updateCategoryRequest);
 
+    @Mapping(target = "id", ignore = true)
+    void updateCategoryFromRequest(UpdateCategoryRequest updateCategoryRequest, @MappingTarget Category category);
 }

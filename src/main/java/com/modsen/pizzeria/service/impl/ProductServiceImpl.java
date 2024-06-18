@@ -4,6 +4,7 @@ import com.modsen.pizzeria.domain.Product;
 import com.modsen.pizzeria.dto.response.ProductResponse;
 import com.modsen.pizzeria.dto.request.CreateProductRequest;
 import com.modsen.pizzeria.dto.request.UpdateProductRequest;
+import com.modsen.pizzeria.error.ErrorMessage;
 import com.modsen.pizzeria.exception.ResourceNotFoundException;
 import com.modsen.pizzeria.mappers.ProductMapper;
 import com.modsen.pizzeria.repository.ProductRepository;
@@ -11,7 +12,6 @@ import com.modsen.pizzeria.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 @Service
@@ -29,13 +29,8 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public ProductResponse updateProduct(Long id, UpdateProductRequest updateProductRequest) {
-        Product existingProduct = productRepository.findById(id)
-                .orElseThrow( () -> new ResourceNotFoundException("Product with id " + id + " does not exist") );
-
-        existingProduct.setName(updateProductRequest.name());
-        existingProduct.setDescription(updateProductRequest.description());
-        existingProduct.setPrice( BigDecimal.valueOf(updateProductRequest.price()) );
-        existingProduct.setCategory(updateProductRequest.category());
+        Product existingProduct = findProductByIdOrThrow(id);
+        productMapper.updateProductFromRequest(updateProductRequest, existingProduct);
 
         Product updatedProduct = productRepository.save(existingProduct);
         return productMapper.toProductResponse(updatedProduct);
@@ -43,24 +38,23 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public void deleteProduct(Long id) {
-        Product product = productRepository.findById(id)
-                .orElseThrow( () -> new ResourceNotFoundException("Product with id " + id + " does not exist") );
-
+        Product product = findProductByIdOrThrow(id);
         productRepository.deleteById(id);
     }
 
     @Override
     public ProductResponse getProductById(Long id) {
-        Product product = productRepository.findById(id)
-                .orElseThrow( () -> new ResourceNotFoundException("Product with id " + id + " does not exist") );
-
+        Product product = findProductByIdOrThrow(id);
         return productMapper.toProductResponse(product);
     }
 
     @Override
     public List<ProductResponse> getAllProducts() {
-        List<Product> products = productRepository.findAll();
-        return products.stream().map(productMapper::toProductResponse).toList();
+        return productRepository.findAll().stream().map(productMapper::toProductResponse).toList();
     }
 
+    private Product findProductByIdOrThrow(Long id) {
+        return productRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException(String.format(ErrorMessage.RESOURCE_NOT_FOUND, "Product", id)));
+    }
 }
