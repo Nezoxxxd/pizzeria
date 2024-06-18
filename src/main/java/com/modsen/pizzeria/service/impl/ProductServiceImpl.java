@@ -50,11 +50,13 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<ProductResponse> getAllProducts() {
-        return productRepository.findAll().stream().map(productMapper::toProductResponse).toList();
+        return productRepository.findAll().stream()
+                .map(productMapper::toProductResponse)
+                .toList();
     }
 
     private Product findProductByIdOrThrow(Long id) {
         return productRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException(String.format(ErrorMessage.RESOURCE_NOT_FOUND, "Product", id)));
+                .orElseThrow(() -> new ResourceNotFoundException(String.format(ErrorMessage.RESOURCE_NOT_FOUND_MESSAGE, "Product", id)));
     }
 }

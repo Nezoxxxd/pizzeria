@@ -3,8 +3,9 @@ package com.modsen.pizzeria.mappers;
 import com.modsen.pizzeria.domain.OrderItem;
 import com.modsen.pizzeria.dto.response.OrderItemResponse;
 import org.mapstruct.Mapper;
+import org.mapstruct.MappingConstants;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public interface OrderItemMapper {
 
     OrderItemResponse toOrderItemDto(OrderItem orderItem);

@@ -6,10 +6,10 @@ import com.modsen.pizzeria.dto.request.CreateUserRequest;
 import com.modsen.pizzeria.dto.request.UpdateUserRequest;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.MappingConstants;
 import org.mapstruct.MappingTarget;
-import org.mapstruct.Mappings;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public interface UserMapper {
 
     UserResponse toUserResponse(User user);

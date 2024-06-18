@@ -52,7 +52,9 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public List<OrderResponse> getAllOrders() {
-        return orderRepository.findAll().stream().map(orderMapper::toOrderResponse).toList();
+        return orderRepository.findAll().stream()
+                .map(orderMapper::toOrderResponse)
+                .toList();
     }
 
     @Override
@@ -68,18 +70,18 @@ public class OrderServiceImpl implements OrderService {
 
     private Order findOrderByIdOrThrow(Long id) {
         return orderRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException(String.format(ErrorMessage.RESOURCE_NOT_FOUND, "Order", id)));
+                .orElseThrow(() -> new ResourceNotFoundException(String.format(ErrorMessage.RESOURCE_NOT_FOUND_MESSAGE, "Order", id)));
     }
 
     private void validateStatusChange(OrderStatus orderStatus, OrderStatus newOrderStatus) {
         if (orderStatus == OrderStatus.COMPLETED || orderStatus == OrderStatus.CANCELLED) {
-            throw new InvalidOrderStatusException(ErrorMessage.COMPLETED_OR_CANCELLED_STATUS);
+            throw new InvalidOrderStatusException(ErrorMessage.COMPLETED_OR_CANCELLED_STATUS_MESSAGE);
         }
         if (orderStatus == OrderStatus.PENDING && newOrderStatus != OrderStatus.PROCESSING) {
-            throw new InvalidOrderStatusException(ErrorMessage.FROM_PENDING_TO_PROCESSING_STATUS);
+            throw new InvalidOrderStatusException(ErrorMessage.FROM_PENDING_TO_PROCESSING_STATUS_MESSAGE);
         }
         if (orderStatus == OrderStatus.PROCESSING && newOrderStatus == OrderStatus.PENDING) {
-            throw new InvalidOrderStatusException(ErrorMessage.FROM_PROCESSING_TO_COMPLETED_OR_CANCELLED_STATUS);
+            throw new InvalidOrderStatusException(ErrorMessage.FROM_PROCESSING_TO_COMPLETED_OR_CANCELLED_STATUS_MESSAGE);
         }
     }
 }

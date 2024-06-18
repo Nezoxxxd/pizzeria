@@ -52,17 +52,19 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public List<CategoryResponse> getAllCategories() {
-        return categoryRepository.findAll().stream().map(categoryMapper::toCategoryResponse).toList();
+        return categoryRepository.findAll().stream()
+                .map(categoryMapper::toCategoryResponse)
+                .toList();
     }
 
     private Category findCategoryByIdOrThrow(Long id) {
         return categoryRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException(String.format(ErrorMessage.RESOURCE_NOT_FOUND, "Category", id)));
+                .orElseThrow(() -> new ResourceNotFoundException(String.format(ErrorMessage.RESOURCE_NOT_FOUND_MESSAGE, "Category", id)));
     }
 
     private void checkCategoryExistence(String categoryName) {
         if(categoryRepository.existsByName(categoryName)) {
-            throw new DuplicateResourceException(String.format(ErrorMessage.DUPLICATE_RESOURCE, "Category", "name"));
+            throw new DuplicateResourceException(String.format(ErrorMessage.DUPLICATE_RESOURCE_MESSAGE, "Category", "name"));
         }
     }
 }

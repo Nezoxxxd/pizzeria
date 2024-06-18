@@ -5,12 +5,9 @@ import com.modsen.pizzeria.domain.OrderStatus;
 import com.modsen.pizzeria.dto.response.OrderResponse;
 import com.modsen.pizzeria.dto.request.CreateOrderRequest;
 import com.modsen.pizzeria.dto.request.UpdateOrderRequest;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.MappingTarget;
-import org.mapstruct.Mappings;
+import org.mapstruct.*;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public interface OrderMapper {
 
     OrderResponse toOrderResponse(Order order);
