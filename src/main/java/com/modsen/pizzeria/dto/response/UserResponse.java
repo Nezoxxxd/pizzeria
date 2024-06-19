@@ -1,7 +1,8 @@
 package com.modsen.pizzeria.dto.response;
 
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotNull;
+import com.modsen.pizzeria.domain.Role;
+
+import java.time.LocalDate;
 
 public record UserResponse(
 
@@ -13,6 +14,12 @@ public record UserResponse(
 
         String password,
 
-        String email
+        String email,
+
+        String gender,
+
+        LocalDate birthDate,
+
+        Role role
 
 ) {}

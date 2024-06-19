@@ -1,5 +1,6 @@
 package com.modsen.pizzeria.service.impl;
 
+import com.modsen.pizzeria.domain.Role;
 import com.modsen.pizzeria.domain.User;
 import com.modsen.pizzeria.dto.response.UserResponse;
 import com.modsen.pizzeria.dto.request.CreateUserRequest;
@@ -8,6 +9,7 @@ import com.modsen.pizzeria.error.ErrorMessages;
 import com.modsen.pizzeria.exception.DuplicateResourceException;
 import com.modsen.pizzeria.exception.ResourceNotFoundException;
 import com.modsen.pizzeria.mappers.UserMapper;
+import com.modsen.pizzeria.repository.RoleRepository;
 import com.modsen.pizzeria.repository.UserRepository;
 import com.modsen.pizzeria.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +21,7 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
+    private final RoleRepository roleRepository;
     private final UserMapper userMapper;
 
     @Override
@@ -26,6 +29,10 @@ public class UserServiceImpl implements UserService {
         checkUserExistence(createUserRequest.email());
 
         User user = userMapper.toUser(createUserRequest);
+        Role defaultRole = roleRepository.findByName(Role.RoleName.CUSTOMER)
+                .orElseThrow(() -> new ResourceNotFoundException("Default role not found"));
+        user.setRole(defaultRole);
+
         return userMapper.toUserResponse(userRepository.save(user));
     }
 
