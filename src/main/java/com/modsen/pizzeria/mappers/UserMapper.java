@@ -1,5 +1,6 @@
 package com.modsen.pizzeria.mappers;
 
+import com.modsen.pizzeria.domain.Role;
 import com.modsen.pizzeria.domain.User;
 import com.modsen.pizzeria.dto.response.UserResponse;
 import com.modsen.pizzeria.dto.request.CreateUserRequest;
@@ -15,7 +16,10 @@ public interface UserMapper {
     UserResponse toUserResponse(User user);
 
     User toUser(UserResponse userResponse);
-    User toUser(CreateUserRequest createUserRequest);
+
+    @Mapping(target = "role", source = "role")
+    User toUser(CreateUserRequest createUserRequest, Role role);
+
     User toUser(UpdateUserRequest updateUserRequest);
 
     @Mapping(target = "id", ignore = true)
