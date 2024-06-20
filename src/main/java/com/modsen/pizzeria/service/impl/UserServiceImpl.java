@@ -14,7 +14,9 @@ import com.modsen.pizzeria.repository.UserRepository;
 import com.modsen.pizzeria.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
@@ -28,9 +30,10 @@ public class UserServiceImpl implements UserService {
     public UserResponse createUser(CreateUserRequest createUserRequest) {
         checkUserExistence(createUserRequest.email());
 
+        Role defaultRole = roleRepository.findByName("CUSTOMER")
+                .orElseThrow(() -> new ResourceNotFoundException("Role CUSTOMER not found"));
+
         User user = userMapper.toUser(createUserRequest);
-        Role defaultRole = roleRepository.findByName(Role.RoleName.CUSTOMER)
-                .orElseThrow(() -> new ResourceNotFoundException("Default role not found"));
         user.setRole(defaultRole);
 
         return userMapper.toUserResponse(userRepository.save(user));

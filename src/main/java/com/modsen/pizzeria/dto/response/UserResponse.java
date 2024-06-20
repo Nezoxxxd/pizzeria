@@ -20,6 +20,5 @@ public record UserResponse(
 
         LocalDate birthDate,
 
-        Role role
-
+        Role roles
 ) {}

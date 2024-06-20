@@ -40,7 +40,7 @@ public class User {
     private LocalDate birthDate;
 
     @ManyToOne
-    @JoinColumn(name = "user_role")
+    @JoinColumn(name = "role_id", nullable = false)
     private Role role;
 
 }

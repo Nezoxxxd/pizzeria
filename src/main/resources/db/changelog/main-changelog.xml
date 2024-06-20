@@ -2,7 +2,7 @@
 <databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
-   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
 
     <include file="v1/v1-accumulate-changelog.xml" relativeToChangelogFile="true"/>
 
@@ -16,4 +16,15 @@
         <tagDatabase tag="v2.0"/>
     </changeSet>
 
+    <include file="v3/v3-accumulate-changelog.xml" relativeToChangelogFile="true"/>
+
+    <changeSet id="3" author="Siilen">
+        <tagDatabase tag="v3.0"/>
+    </changeSet>
+
+    <include file="v4/v4-accumulate-changelog.xml" relativeToChangelogFile="true"/>
+
+    <changeSet id="4" author="Siilen">
+        <tagDatabase tag="v4.0"/>
+    </changeSet>
 </databaseChangeLog>
