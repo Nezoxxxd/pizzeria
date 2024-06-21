@@ -8,7 +8,7 @@
         <addColumn tableName="users">
             <column name="gender" type="varchar(10)"/>
             <column name="birth_date" type="date"/>
-            <column name="role_id" type="bigint"/>
+            <column name="role_id" type="bigint" defaultValue="2"/>
         </addColumn>
     </changeSet>
 
@@ -23,18 +23,14 @@
 
     <changeSet id="3" author="Siilen">
         <update tableName="users">
-            <column name="gender" value="Unknown"/>
-            <where>gender IS NULL</where>
-        </update>
-        <update tableName="users">
-            <column name="birth_date" value="1970-01-01"/>
-            <where>birth_date IS NULL</where>
-        </update>
-        <update tableName="users">
+            <column name="gender" value="Male"/>
+            <column name="birth_date" value="1999-01-02"/>
             <column name="role_id" valueNumeric="1"/>
             <where>id = 1</where>
         </update>
         <update tableName="users">
+            <column name="gender" value="Female"/>
+            <column name="birth_date" value="1985-10-02"/>
             <column name="role_id" valueNumeric="2"/>
             <where>id = 2</where>
         </update>
@@ -63,7 +59,6 @@
             <column name="password" value="password4"/>
             <column name="gender" value="Male"/>
             <column name="birth_date" value="2001-08-10"/>
-            <column name="role_id" value="2"/>
         </insert>
     </changeSet>
 

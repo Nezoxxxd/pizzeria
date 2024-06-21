@@ -28,9 +28,8 @@ public class UserServiceImpl implements UserService {
     public UserResponse createUser(CreateUserRequest createUserRequest) {
         checkUserExistence(createUserRequest.email());
 
-        Role customerRole = findRoleByName("CUSTOMER");
-        User user = userMapper.toUser(createUserRequest, customerRole);
-        user.setRole(customerRole);
+        Role defaultRole = findRoleByName("CUSTOMER");
+        User user = userMapper.toUser(createUserRequest, defaultRole);
 
         return userMapper.toUserResponse(userRepository.save(user));
     }

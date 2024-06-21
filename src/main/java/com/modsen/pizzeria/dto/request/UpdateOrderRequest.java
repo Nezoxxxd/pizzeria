@@ -2,7 +2,6 @@ package com.modsen.pizzeria.dto.request;
 
 import com.modsen.pizzeria.domain.OrderItem;
 import com.modsen.pizzeria.domain.OrderStatus;
-import com.modsen.pizzeria.domain.User;
 import jakarta.validation.constraints.NotNull;
 
 import java.util.List;

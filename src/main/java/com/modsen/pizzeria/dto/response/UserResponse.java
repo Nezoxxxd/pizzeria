@@ -1,7 +1,5 @@
 package com.modsen.pizzeria.dto.response;
 
-import com.modsen.pizzeria.domain.Role;
-
 import java.time.LocalDate;
 
 public record UserResponse(
@@ -20,5 +18,5 @@ public record UserResponse(
 
         LocalDate birthDate,
 
-        Role roles
+        RoleResponse role
 ) {}
