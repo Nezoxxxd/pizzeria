@@ -22,8 +22,4 @@ public class Role {
     @Column(nullable = false, unique = true)
     private RoleName name;
 
-    public String getName() {
-        return this.name.toString();
-    }
-
 }
