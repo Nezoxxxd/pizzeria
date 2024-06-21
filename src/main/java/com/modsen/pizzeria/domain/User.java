@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import java.time.LocalDate;
 
 @Entity
 @Data
@@ -17,6 +18,7 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @Column(nullable = false, length = 50)
     private String firstname;
 
@@ -28,5 +30,15 @@ public class User {
 
     @Column(nullable = false, length = 15)
     private String password;
+
+    @Column(nullable = false, length = 10)
+    private String gender;
+
+    @Column(nullable = false)
+    private LocalDate birthDate;
+
+    @ManyToOne
+    @JoinColumn(name = "role_id", nullable = false)
+    private Role role;
 
 }

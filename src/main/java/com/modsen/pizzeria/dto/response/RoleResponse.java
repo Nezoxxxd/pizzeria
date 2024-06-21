@@ -1,11 +1,9 @@
 package com.modsen.pizzeria.dto.response;
 
-public record CategoryResponse(
+public record RoleResponse(
 
         Long id,
 
         String name
 
 ) {}
-
-

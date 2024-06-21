@@ -1,6 +1,5 @@
 package com.modsen.pizzeria.repository;
 
-import com.modsen.pizzeria.domain.Category;
 import com.modsen.pizzeria.domain.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

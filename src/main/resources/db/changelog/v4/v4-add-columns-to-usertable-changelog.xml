@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.5.xsd">
+
+    <changeSet id="1" author="Siilen">
+        <addColumn tableName="users">
+            <column name="gender" type="varchar(10)"/>
+            <column name="birth_date" type="date"/>
+            <column name="role_id" type="bigint" defaultValue="2"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="2" author="Siilen">
+        <addForeignKeyConstraint baseTableName="users"
+                                 baseColumnNames="role_id"
+                                 constraintName="fk_user_role"
+                                 referencedTableName="roles"
+                                 referencedColumnNames="id"
+                                 onDelete="CASCADE"/>
+    </changeSet>
+
+    <changeSet id="3" author="Siilen">
+        <update tableName="users">
+            <column name="gender" value="Male"/>
+            <column name="birth_date" value="1999-01-02"/>
+            <column name="role_id" valueNumeric="1"/>
+            <where>id = 1</where>
+        </update>
+        <update tableName="users">
+            <column name="gender" value="Female"/>
+            <column name="birth_date" value="1985-10-02"/>
+            <column name="role_id" valueNumeric="2"/>
+            <where>id = 2</where>
+        </update>
+    </changeSet>
+
+    <changeSet id="4" author="Siilen">
+        <addNotNullConstraint columnName="gender" tableName="users" columnDataType="varchar(10)"/>
+        <addNotNullConstraint columnName="birth_date" tableName="users" columnDataType="date"/>
+        <addNotNullConstraint columnName="role_id" tableName="users" columnDataType="bigint"/>
+    </changeSet>
+
+    <changeSet id="5" author="Siilen">
+        <insert tableName="users">
+            <column name="firstname" value="Tony"/>
+            <column name="lastname" value="Stark"/>
+            <column name="email" value="tony.stark@example.com"/>
+            <column name="password" value="password3"/>
+            <column name="gender" value="Male"/>
+            <column name="birth_date" value="1970-05-29"/>
+            <column name="role_id" value="1"/>
+        </insert>
+        <insert tableName="users">
+            <column name="firstname" value="Peter"/>
+            <column name="lastname" value="Parker"/>
+            <column name="email" value="peter.parker@example.com"/>
+            <column name="password" value="password4"/>
+            <column name="gender" value="Male"/>
+            <column name="birth_date" value="2001-08-10"/>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>

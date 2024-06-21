@@ -2,6 +2,7 @@ package com.modsen.pizzeria.dto.request;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
+import java.time.LocalDate;
 
 public record UpdateUserRequest(
 
@@ -16,6 +17,12 @@ public record UpdateUserRequest(
 
         @Email(message = "{user.email.valid}")
         @NotNull(message = "{user.email.notnull}")
-        String email
+        String email,
+
+        @NotNull(message = "{user.gender.notnull}")
+        String gender,
+
+        @NotNull(message = "{user.birthDate.notnull}")
+        LocalDate birthDate
 
 ) {}

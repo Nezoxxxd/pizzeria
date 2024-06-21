@@ -51,5 +51,4 @@ public class UserController {
         return userService.getAllUsers();
     }
 
-
 }
