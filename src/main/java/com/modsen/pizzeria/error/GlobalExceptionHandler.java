@@ -43,8 +43,9 @@ public class GlobalExceptionHandler {
                 ));
         return AppErrorCustom.builder()
                 .status(HttpStatus.BAD_REQUEST.value())
-                .errors(errors)
+                .message(e.getMessage())
                 .timestamp(LocalDateTime.now())
+                .errors(errors)
                 .build();
     }
 
@@ -58,8 +59,9 @@ public class GlobalExceptionHandler {
                 ));
         return AppErrorCustom.builder()
                 .status(HttpStatus.BAD_REQUEST.value())
-                .errors(errors)
+                .message(e.getMessage())
                 .timestamp(LocalDateTime.now())
+                .errors(errors)
                 .build();
     }
 
