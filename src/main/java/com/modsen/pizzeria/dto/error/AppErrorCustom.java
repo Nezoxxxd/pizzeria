@@ -5,5 +5,9 @@ import java.util.Map;
 import java.time.LocalDateTime;
 
 @Builder
-public record AppErrorCustom(int status, String message, LocalDateTime timestamp, Map<String, String> errors) {
-}
+public record AppErrorCustom(
+        int status,
+        String message,
+        LocalDateTime timestamp,
+        Map<String, String> errors
+) {}
