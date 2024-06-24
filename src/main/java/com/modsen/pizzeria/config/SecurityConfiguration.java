@@ -31,7 +31,7 @@ public class SecurityConfiguration {
 
     private static final String[] ADMIN_URL = {
             "/api/v1/category/**",
-            "api/v1/product/**"
+            "/api/v1/product/**"
            };
 
     @Bean
@@ -44,7 +44,7 @@ public class SecurityConfiguration {
                         .requestMatchers(POST, ADMIN_URL).hasRole(ADMIN.name())
                         .requestMatchers(PUT, ADMIN_URL).hasRole(ADMIN.name())
                         .requestMatchers(DELETE, ADMIN_URL).hasRole(ADMIN.name())
-                        .requestMatchers( "api/v1/user/**").hasRole(ADMIN.name())
+                        .requestMatchers( "/api/v1/user/**").hasRole(ADMIN.name())
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(STATELESS))

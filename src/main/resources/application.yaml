@@ -18,3 +18,11 @@ spring:
   liquibase:
     change-log: db/changelog/main-changelog.xml
     enabled: true
+
+
+application:
+  security:
+    jwt:
+      secret-key: ${JWT_SECRET_KEY}
+      accessExpiration: ${ACCESS_TOKEN_EXPIRATION}
+      refreshExpiration: ${REFRESH_TOKEN_EXPIRATION}

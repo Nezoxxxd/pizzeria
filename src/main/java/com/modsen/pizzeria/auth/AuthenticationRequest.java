@@ -1,17 +1,17 @@
 package com.modsen.pizzeria.auth;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
-@Data
-@Builder
-@AllArgsConstructor
-@NoArgsConstructor
-public class AuthenticationRequest {
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotNull;
 
-  private String email;
-  String password;
+public record AuthenticationRequest(
 
+        @Email(message = "{user.email.valid}")
+        @NotNull(message = "{user.email.notnull}")
+        String email,
+
+        @NotNull(message = "{user.password.notnull}")
+        String password
+
+) {
 }
