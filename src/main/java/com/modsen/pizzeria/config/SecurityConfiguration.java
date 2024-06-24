@@ -44,7 +44,7 @@ public class SecurityConfiguration {
                         .requestMatchers(POST, ADMIN_URL).hasRole(ADMIN.name())
                         .requestMatchers(PUT, ADMIN_URL).hasRole(ADMIN.name())
                         .requestMatchers(DELETE, ADMIN_URL).hasRole(ADMIN.name())
-                        .requestMatchers( "/api/v1/user/**").hasRole(ADMIN.name())
+                        .requestMatchers(GET,"/api/v1/user").hasRole(ADMIN.name())
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(STATELESS))
