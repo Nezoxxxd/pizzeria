@@ -14,5 +14,5 @@ public final class ErrorMessages {
     public static final String FROM_PENDING_TO_PROCESSING_STATUS_MESSAGE = "Can only change status from PENDING to PROCESSING";
     public static final String FROM_PROCESSING_TO_COMPLETED_OR_CANCELLED_STATUS_MESSAGE = "Can only change status from PROCESSING to COMPLETED or CANCELLED";
 
-    public static final String PERFORMING_ERROR_MESSAGE = "You do not have permission to perform this operation";
+    public static final String ACCESS_DENIED_ERROR_MESSAGE = "You do not have permission to perform this operation";
 }

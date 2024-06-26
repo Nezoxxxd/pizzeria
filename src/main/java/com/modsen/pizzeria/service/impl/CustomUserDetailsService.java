@@ -1,6 +1,7 @@
 package com.modsen.pizzeria.service.impl;
 
 import com.modsen.pizzeria.config.SecurityUser;
+import com.modsen.pizzeria.error.ErrorMessages;
 import com.modsen.pizzeria.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -18,7 +19,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return new SecurityUser(
                 userRepository.findByEmail(username)
-                        .orElseThrow(()-> new UsernameNotFoundException("User not found"))
+                        .orElseThrow(() -> new UsernameNotFoundException(String.format(ErrorMessages.USER_NOT_FOUND_MESSAGE, username)))
         );
     }
 }

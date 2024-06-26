@@ -39,7 +39,7 @@ public class CheckEmailMatchAspect {
                 .orElseThrow(() -> new ResourceNotFoundException(String.format(ErrorMessages.RESOURCE_NOT_FOUND_MESSAGE, "User", userId)));
 
         if (!currentUserEmail.equals(userToOperate.getEmail()) && !userAuthorities.contains("ROLE_" + ADMIN.name())) {
-            throw new AccessDeniedException(ErrorMessages.PERFORMING_ERROR_MESSAGE);
+            throw new AccessDeniedException(ErrorMessages.ACCESS_DENIED_ERROR_MESSAGE);
         }
     }
 }
