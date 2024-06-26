@@ -29,6 +29,7 @@ public class UserServiceImpl implements UserService {
     private final UserMapper userMapper;
     private final PasswordEncoder passwordEncoder;
 
+
     @Override
     public UserResponse createUser(CreateUserRequest createUserRequest) {
         checkUserExistence(createUserRequest.email());

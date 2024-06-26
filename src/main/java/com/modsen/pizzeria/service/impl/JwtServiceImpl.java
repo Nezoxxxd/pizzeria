@@ -1,12 +1,13 @@
 package com.modsen.pizzeria.service.impl;
 
 import com.modsen.pizzeria.service.JwtService;
+import com.modsen.pizzeria.service.props.JwtProperties;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
-import org.springframework.beans.factory.annotation.Value;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
@@ -17,16 +18,10 @@ import java.util.Map;
 import java.util.function.Function;
 
 @Service
+@RequiredArgsConstructor
 public class JwtServiceImpl implements JwtService {
 
-    @Value("${application.security.jwt.secret-key}")
-    private String SECRET_KEY;
-
-    @Value("${application.security.jwt.accessExpiration}")
-    private long accessTokenValidity;
-
-    @Value("${application.security.jwt.refreshExpiration}")
-    private long refreshTokenValidity;
+    private final JwtProperties jwtProperties;
 
     @Override
     public String extractUserEmail(String token) {
@@ -41,18 +36,17 @@ public class JwtServiceImpl implements JwtService {
 
     @Override
     public String generateToken(UserDetails userDetails) {
-        //return generateToken(new HashMap<>(), userDetails);
-        return buildToken(new HashMap<>(), userDetails, accessTokenValidity);
+        return buildToken(new HashMap<>(), userDetails, jwtProperties.getAccess());
     }
 
     @Override
     public String generateToken(Map<String, Object> claims, UserDetails userDetails) {
-        return buildToken(claims, userDetails, accessTokenValidity);
+        return buildToken(claims, userDetails, jwtProperties.getAccess());
     }
 
     @Override
     public String generateRefreshToken(UserDetails userDetails) {
-        return buildToken(new HashMap<>(), userDetails, refreshTokenValidity);
+        return buildToken(new HashMap<>(), userDetails, jwtProperties.getRefresh());
     }
 
     @Override
@@ -80,7 +74,7 @@ public class JwtServiceImpl implements JwtService {
     }
 
     private Key getSignInKey() {
-        byte[] keyBytes = Decoders.BASE64.decode(SECRET_KEY);
+        byte[] keyBytes = Decoders.BASE64.decode(jwtProperties.getSecret());
         return Keys.hmacShaKeyFor(keyBytes);
     }
 

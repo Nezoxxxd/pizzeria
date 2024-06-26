@@ -1,6 +1,7 @@
 package com.modsen.pizzeria.auth;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.modsen.pizzeria.config.SecurityUser;
 import com.modsen.pizzeria.domain.Role;
 import com.modsen.pizzeria.domain.RoleName;
 import com.modsen.pizzeria.domain.User;
@@ -20,6 +21,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -42,19 +44,11 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         checkUserExistence(request.email());
 
         Role defaultRole = findRoleByName(RoleName.CUSTOMER);
-        User user = User.builder()
-                .firstname(request.firstname())
-                .lastname(request.lastname())
-                .email(request.email())
-                .password(passwordEncoder.encode(request.password()))
-                .gender(request.gender())
-                .birthDate(request.birthDate())
-                .role(defaultRole)
-                .build();
+        UserDetails userDetails = buildUser(request, defaultRole);
 
-        User savedUser = userRepository.save(user);
-        String accessToken = jwtService.generateToken(user);
-        String refreshToken = jwtService.generateRefreshToken(user);
+        User savedUser = userRepository.save(((SecurityUser) userDetails).getUser());
+        String accessToken = jwtService.generateToken(userDetails);
+        String refreshToken = jwtService.generateRefreshToken(userDetails);
         saveUserToken(savedUser, accessToken);
 
         return AuthenticationResponse.builder()
@@ -70,8 +64,9 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         );
 
         User user = findUserByEmail(request.email());
-        String accessToken = jwtService.generateToken(user);
-        String refreshToken = jwtService.generateRefreshToken(user);
+        UserDetails userDetails = new SecurityUser(user);
+        String accessToken = jwtService.generateToken(userDetails);
+        String refreshToken = jwtService.generateRefreshToken(userDetails);
         revokeAllUserTokens(user);
         saveUserToken(user, accessToken);
         return AuthenticationResponse.builder()
@@ -95,10 +90,11 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
         if (userEmail != null) {
             User user = findUserByEmail(userEmail);
+            UserDetails userDetails = new SecurityUser(user);
 
-            if (jwtService.isTokenValid(refreshToken, user)) {
-                String newAccessToken = jwtService.generateToken(user);
-                String newRefreshToken = jwtService.generateRefreshToken(user);
+            if (jwtService.isTokenValid(refreshToken, userDetails)) {
+                String newAccessToken = jwtService.generateToken(userDetails);
+                String newRefreshToken = jwtService.generateRefreshToken(userDetails);
                 revokeAllUserTokens(user);
                 saveUserToken(user, newAccessToken);
 
@@ -148,5 +144,19 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         if (userRepository.existsByEmail(email)) {
             throw new DuplicateResourceException(String.format(ErrorMessages.DUPLICATE_RESOURCE_MESSAGE, "User", "email"));
         }
+    }
+
+    private UserDetails buildUser(CreateUserRequest request, Role role) {
+        User user = User.builder()
+                .firstname(request.firstname())
+                .lastname(request.lastname())
+                .email(request.email())
+                .password(passwordEncoder.encode(request.password()))
+                .gender(request.gender())
+                .birthDate(request.birthDate())
+                .role(role)
+                .build();
+
+        return new SecurityUser(user);
     }
 }

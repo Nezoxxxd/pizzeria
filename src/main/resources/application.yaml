@@ -23,6 +23,6 @@ spring:
 application:
   security:
     jwt:
-      secret-key: ${JWT_SECRET_KEY}
-      accessExpiration: ${ACCESS_TOKEN_EXPIRATION}
-      refreshExpiration: ${REFRESH_TOKEN_EXPIRATION}
+      secret: ${JWT_SECRET_KEY}
+      access: ${ACCESS_TOKEN_EXPIRATION}
+      refresh: ${REFRESH_TOKEN_EXPIRATION}

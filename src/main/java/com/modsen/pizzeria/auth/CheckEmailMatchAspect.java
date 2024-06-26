@@ -2,6 +2,7 @@ package com.modsen.pizzeria.auth;
 
 import com.modsen.pizzeria.domain.RoleName;
 import com.modsen.pizzeria.domain.User;
+import com.modsen.pizzeria.error.ErrorMessages;
 import com.modsen.pizzeria.exception.AccessDeniedException;
 import com.modsen.pizzeria.exception.ResourceNotFoundException;
 import com.modsen.pizzeria.repository.UserRepository;
@@ -35,10 +36,10 @@ public class CheckEmailMatchAspect {
         var userAuthorities = authentication.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority).toList();
         User userToOperate = userRepository.findById(userId)
-                .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + userId));
+                .orElseThrow(() -> new ResourceNotFoundException(String.format(ErrorMessages.RESOURCE_NOT_FOUND_MESSAGE, "User", userId)));
 
         if (!currentUserEmail.equals(userToOperate.getEmail()) && !userAuthorities.contains("ROLE_" + ADMIN.name())) {
-            throw new AccessDeniedException("You do not have permission to perform this operation");
+            throw new AccessDeniedException(ErrorMessages.PERFORMING_ERROR_MESSAGE);
         }
     }
 }
