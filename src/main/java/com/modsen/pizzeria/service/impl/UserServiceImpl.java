@@ -1,5 +1,6 @@
 package com.modsen.pizzeria.service.impl;
 
+import com.modsen.pizzeria.auth.EmailMatchOrAdminAccess;
 import com.modsen.pizzeria.domain.Role;
 import com.modsen.pizzeria.domain.RoleName;
 import com.modsen.pizzeria.domain.User;
@@ -16,6 +17,7 @@ import com.modsen.pizzeria.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 
 @Service
@@ -26,6 +28,7 @@ public class UserServiceImpl implements UserService {
     private final RoleRepository roleRepository;
     private final UserMapper userMapper;
     private final PasswordEncoder passwordEncoder;
+
 
     @Override
     public UserResponse createUser(CreateUserRequest createUserRequest) {
@@ -40,6 +43,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @EmailMatchOrAdminAccess
     public UserResponse updateUser(Long id, UpdateUserRequest updateUserRequest) {
         User existingUser = findUserByIdOrThrow(id);
 
@@ -51,12 +55,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @EmailMatchOrAdminAccess
     public void deleteUser(Long id) {
         User user = findUserByIdOrThrow(id);
         userRepository.deleteById(id);
     }
 
     @Override
+    @EmailMatchOrAdminAccess
     public UserResponse getUserById(Long id) {
         User user = findUserByIdOrThrow(id);
         return userMapper.toUserResponse(user);
@@ -80,7 +86,7 @@ public class UserServiceImpl implements UserService {
     }
 
     private void checkUserExistence(String email) {
-        if(userRepository.existsByEmail(email)) {
+        if (userRepository.existsByEmail(email)) {
             throw new DuplicateResourceException(String.format(ErrorMessages.DUPLICATE_RESOURCE_MESSAGE, "User", "email"));
         }
     }

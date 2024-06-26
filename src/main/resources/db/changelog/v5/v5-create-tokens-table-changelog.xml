@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="1" author="Voropay Matvey">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="tokens"/>
+            </not>
+        </preConditions>
+        <createTable tableName="tokens">
+            <column name="id" type="INTEGER" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="token" type="VARCHAR(255)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="revoked" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+            <column name="expired" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+            <column name="user_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addForeignKeyConstraint baseTableName="tokens"
+                                 baseColumnNames="user_id"
+                                 referencedTableName="users"
+                                 referencedColumnNames="id"
+                                 constraintName="fk_tokens_user_id"
+                                 onDelete="CASCADE"/>
+    </changeSet>
+    <changeSet id="2" author="Voropay Matvey">
+        <insert tableName="tokens">
+            <column name="token" value="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"/>
+            <column name="revoked" value="true"/>
+            <column name="expired" value="true"/>
+            <column name="user_id" value="1"/>
+        </insert>
+
+        <insert tableName="tokens">
+            <column name="token" value="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG8yZSIsImlhdCI6MTUxNjIzOTAyMn0.NC6U-e9fExE5p8P-bktFhIZlLi_C3ySwLb_kpuGttjk"/>
+            <column name="revoked" value="true"/>
+            <column name="expired" value="true"/>
+            <column name="user_id" value="2"/>
+        </insert>
+
+        <insert tableName="tokens">
+            <column name="token" value="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG8yZSIsImlhdCI6MTUxNjIzOTAyMjJ9.Y0W_IhkeAugqFe13H5YcK0UAJFYQU4jI6_zPEQb7bzU"/>
+            <column name="revoked" value="true"/>
+            <column name="expired" value="true"/>
+            <column name="user_id" value="3"/>
+        </insert>
+
+        <insert tableName="tokens">
+            <column name="token" value="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG8yZSIsImlhdCI6MTUxNjIzOTAyMjJ9.Y0W_IhkeAugqFe13H5YcK0UAJFYQU4jI6_zPEQb7bzK"/>
+            <column name="revoked" value="true"/>
+            <column name="expired" value="true"/>
+            <column name="user_id" value="4"/>
+        </insert>
+
+    </changeSet>
+
+</databaseChangeLog>

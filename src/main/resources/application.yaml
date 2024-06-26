@@ -1,13 +1,15 @@
 spring:
+  config:
+    import: optional:file:.env[.properties]
   datasource:
-    url: jdbc:postgresql://localhost:5432/pizzeria
-    username: username
-    password: password
+    url: jdbc:postgresql://localhost:${POSTGRESDB_LOCAL_PORT}/${POSTGRESDB_DATABASE}
+    username: ${POSTGRESDB_USER}
+    password: ${POSTGRESDB_ROOT_PASSWORD}
     driver-class-name: org.postgresql.Driver
 
   jpa:
     hibernate:
-      ddl-auto: validate
+      ddl-auto: none
     show-sql: true
     properties:
       hibernate:
@@ -16,3 +18,11 @@ spring:
   liquibase:
     change-log: db/changelog/main-changelog.xml
     enabled: true
+
+
+application:
+  security:
+    jwt:
+      secret: ${JWT_SECRET_KEY}
+      access: ${ACCESS_TOKEN_EXPIRATION}
+      refresh: ${REFRESH_TOKEN_EXPIRATION}
