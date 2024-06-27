@@ -7,8 +7,6 @@ public record OrderResponse(
 
         Long id,
 
-        UserResponse user,
-
         OrderStatus status,
 
         List<OrderItemResponse> orderItems

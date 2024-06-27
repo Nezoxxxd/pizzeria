@@ -74,7 +74,8 @@
                                  baseTableName="products"
                                  constraintName="fk_products_category"
                                  referencedColumnNames="id"
-                                 referencedTableName="categories"/>
+                                 referencedTableName="categories"
+                                 onDelete="CASCADE"/>
     </changeSet>
 
     <!-- ChangeSet for creating the Orders table -->
@@ -99,7 +100,8 @@
                                  baseTableName="orders"
                                  constraintName="fk_orders_user"
                                  referencedColumnNames="id"
-                                 referencedTableName="users"/>
+                                 referencedTableName="users"
+                                 onDelete="CASCADE"/>
     </changeSet>
 
     <!-- ChangeSet for creating the OrderItems table -->
@@ -127,11 +129,13 @@
                                  baseTableName="order_items"
                                  constraintName="fk_orderitems_order"
                                  referencedColumnNames="id"
-                                 referencedTableName="orders"/>
+                                 referencedTableName="orders"
+                                 onDelete="CASCADE"/>
         <addForeignKeyConstraint baseColumnNames="product_id"
                                  baseTableName="order_items"
                                  constraintName="fk_orderitems_product"
                                  referencedColumnNames="id"
-                                 referencedTableName="products"/>
+                                 referencedTableName="products"
+                                 onDelete="CASCADE"/>
     </changeSet>
 </databaseChangeLog>

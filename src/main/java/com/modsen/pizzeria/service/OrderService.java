@@ -19,5 +19,4 @@ public interface OrderService {
 
     List<OrderResponse> getAllOrders();
 
-    OrderResponse updateOrderStatus(Long id, OrderStatus newOrderStatus);
 }

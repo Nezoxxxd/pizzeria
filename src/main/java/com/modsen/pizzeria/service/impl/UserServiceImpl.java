@@ -33,12 +33,9 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserResponse createUser(CreateUserRequest createUserRequest) {
         checkUserExistence(createUserRequest.email());
-
         Role defaultRole = findRoleByName(RoleName.CUSTOMER);
         User user = userMapper.toUser(createUserRequest, defaultRole);
-
         user.setPassword(passwordEncoder.encode(createUserRequest.password()));
-
         return userMapper.toUserResponse(userRepository.save(user));
     }
 
@@ -46,10 +43,7 @@ public class UserServiceImpl implements UserService {
     @EmailMatchOrAdminAccess
     public UserResponse updateUser(Long id, UpdateUserRequest updateUserRequest) {
         User existingUser = findUserByIdOrThrow(id);
-
-        checkUserExistence(updateUserRequest.email());
         userMapper.updateUserFromRequest(updateUserRequest, existingUser);
-
         User updatedUser = userRepository.save(existingUser);
         return userMapper.toUserResponse(updatedUser);
     }
