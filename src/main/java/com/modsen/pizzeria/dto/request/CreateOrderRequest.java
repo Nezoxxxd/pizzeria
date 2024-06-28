@@ -15,7 +15,7 @@ public record CreateOrderRequest(
         User user,
 
         @NotNull(message = "{order.orderItems.notnull}")
-        List<OrderItem> orderItems
+        List<OrderItemRequest> orderItems
 
 ) {}
 

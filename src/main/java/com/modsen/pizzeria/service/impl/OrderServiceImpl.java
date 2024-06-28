@@ -1,5 +1,7 @@
 package com.modsen.pizzeria.service.impl;
 
+import com.modsen.pizzeria.auth.annotations.OrderOwnerOrAdminAccess;
+import com.modsen.pizzeria.config.SecurityUser;
 import com.modsen.pizzeria.domain.Order;
 import com.modsen.pizzeria.domain.OrderStatus;
 import com.modsen.pizzeria.dto.response.OrderResponse;
@@ -12,7 +14,9 @@ import com.modsen.pizzeria.mappers.OrderMapper;
 import com.modsen.pizzeria.repository.OrderRepository;
 import com.modsen.pizzeria.service.OrderService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 
 @Service
@@ -26,25 +30,45 @@ public class OrderServiceImpl implements OrderService {
     public OrderResponse createOrder(CreateOrderRequest createOrderRequest) {
         Order order = orderMapper.toOrder(createOrderRequest);
         order.setStatus(OrderStatus.PENDING);
+        SecurityUser user = (SecurityUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        order.setUser(user.getUser());
+        order.getOrderItems().forEach(item -> item.setOrder(order));
         return orderMapper.toOrderResponse(orderRepository.save(order));
     }
 
     @Override
+    @OrderOwnerOrAdminAccess
     public OrderResponse updateOrder(Long id, UpdateOrderRequest updateOrderRequest) {
         Order existingOrder = findOrderByIdOrThrow(id);
-        orderMapper.updateOrderFromRequest(updateOrderRequest, existingOrder);
+        validateStatusChange(existingOrder.getStatus(), updateOrderRequest.status());
+        Order newOrder = orderMapper.toOrder(updateOrderRequest);
+        existingOrder.setStatus(newOrder.getStatus());
+        existingOrder.setOrderItems(newOrder.getOrderItems());
+        existingOrder.getOrderItems().forEach(item -> item.setOrder(existingOrder));
 
         Order updatedOrder = orderRepository.save(existingOrder);
         return orderMapper.toOrderResponse(updatedOrder);
     }
 
     @Override
+    public OrderResponse updateStatus(Long id, OrderStatus newOrderStatus) {
+        Order order = findOrderByIdOrThrow(id);
+        validateStatusChange(order.getStatus(), newOrderStatus);
+
+        order.setStatus(newOrderStatus);
+        return orderMapper.toOrderResponse(orderRepository.save(order));
+    }
+
+
+    @Override
+    @OrderOwnerOrAdminAccess
     public void deleteOrder(Long id) {
         Order order = findOrderByIdOrThrow(id);
         orderRepository.deleteById(id);
     }
 
     @Override
+    @OrderOwnerOrAdminAccess
     public OrderResponse getOrderById(Long id) {
         Order order = findOrderByIdOrThrow(id);
         return orderMapper.toOrderResponse(order);
@@ -57,16 +81,6 @@ public class OrderServiceImpl implements OrderService {
                 .toList();
     }
 
-    @Override
-    public OrderResponse updateOrderStatus(Long id, OrderStatus newOrderStatus) {
-        Order order = findOrderByIdOrThrow(id);
-        validateStatusChange(order.getStatus(), newOrderStatus);
-
-        orderMapper.updateOrderStatus(order, newOrderStatus);
-
-        Order updatedOrder = orderRepository.save(order);
-        return orderMapper.toOrderResponse(updatedOrder);
-    }
 
     private Order findOrderByIdOrThrow(Long id) {
         return orderRepository.findById(id)

@@ -13,11 +13,12 @@ public interface OrderService {
 
     OrderResponse updateOrder(Long id, UpdateOrderRequest updateOrderRequest);
 
+    OrderResponse updateStatus(Long id, OrderStatus newOrderStatus);
+
     void deleteOrder(Long id);
 
     OrderResponse getOrderById(Long id);
 
     List<OrderResponse> getAllOrders();
 
-    OrderResponse updateOrderStatus(Long id, OrderStatus newOrderStatus);
 }

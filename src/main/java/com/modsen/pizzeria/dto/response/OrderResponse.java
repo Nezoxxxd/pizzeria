@@ -11,8 +11,6 @@ public record OrderResponse(
         @Schema(description = "Id", example = "1")
         Long id,
 
-        UserResponse user,
-
         OrderStatus status,
 
         List<OrderItemResponse> orderItems

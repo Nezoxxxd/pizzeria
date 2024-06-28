@@ -1,6 +1,7 @@
 package com.modsen.pizzeria.controllers;
 
 import com.modsen.pizzeria.swagger.OrderApi;
+import com.modsen.pizzeria.domain.OrderStatus;
 import com.modsen.pizzeria.dto.request.CreateOrderRequest;
 import com.modsen.pizzeria.dto.request.UpdateOrderRequest;
 import com.modsen.pizzeria.dto.response.OrderResponse;
@@ -32,7 +33,16 @@ public class OrderController implements OrderApi {
             @PathVariable Long id,
             @RequestBody @Valid UpdateOrderRequest updateOrderRequest
     ){
-        return orderService.updateOrder(id,updateOrderRequest);
+        return orderService.updateOrder(id, updateOrderRequest);
+    }
+
+    @PutMapping("/{id}/update-status")
+    @ResponseStatus(HttpStatus.OK)
+    public OrderResponse updateStatus(
+            @PathVariable Long id,
+            @RequestParam OrderStatus status
+    ) {
+        return orderService.updateStatus(id, status);
     }
 
     @DeleteMapping("/{id}")
