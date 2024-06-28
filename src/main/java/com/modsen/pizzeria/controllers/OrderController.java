@@ -5,7 +5,6 @@ import com.modsen.pizzeria.dto.request.CreateOrderRequest;
 import com.modsen.pizzeria.dto.request.UpdateOrderRequest;
 import com.modsen.pizzeria.dto.response.OrderResponse;
 import com.modsen.pizzeria.service.OrderService;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -15,7 +14,6 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("api/v1/order")
-@Tag(name = "Order Controller", description = "Order API")
 public class OrderController implements OrderApi {
 
     private final OrderService orderService;

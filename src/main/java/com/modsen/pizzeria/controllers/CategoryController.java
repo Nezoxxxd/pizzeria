@@ -5,7 +5,6 @@ import com.modsen.pizzeria.dto.request.CreateCategoryRequest;
 import com.modsen.pizzeria.dto.request.UpdateCategoryRequest;
 import com.modsen.pizzeria.dto.response.CategoryResponse;
 import com.modsen.pizzeria.service.CategoryService;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -15,7 +14,6 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("api/v1/category")
-@Tag(name = "Category Controller", description = "Category API")
 public class CategoryController implements CategoryApi {
 
      private final CategoryService categoryService;

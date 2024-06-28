@@ -5,7 +5,6 @@ import com.modsen.pizzeria.dto.request.CreateProductRequest;
 import com.modsen.pizzeria.dto.request.UpdateProductRequest;
 import com.modsen.pizzeria.dto.response.ProductResponse;
 import com.modsen.pizzeria.service.ProductService;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -15,7 +14,6 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("api/v1/product")
-@Tag(name = "Product Controller", description = "Product API")
 public class ProductController implements ProductApi {
 
     private final ProductService productService;

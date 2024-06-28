@@ -3,7 +3,6 @@ package com.modsen.pizzeria.auth;
 import com.modsen.pizzeria.swagger.AuthenticationApi;
 import com.modsen.pizzeria.dto.request.CreateUserRequest;
 import com.modsen.pizzeria.service.AuthenticationService;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -15,7 +14,6 @@ import java.io.IOException;
 @RestController
 @RequestMapping("/api/v1/auth")
 @RequiredArgsConstructor
-@Tag(name = "Authentication Controller", description = "Authentication API")
 public class AuthenticationController implements AuthenticationApi {
 
     private final AuthenticationService service;

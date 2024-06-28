@@ -5,7 +5,6 @@ import com.modsen.pizzeria.dto.request.CreateUserRequest;
 import com.modsen.pizzeria.dto.request.UpdateUserRequest;
 import com.modsen.pizzeria.dto.response.UserResponse;
 import com.modsen.pizzeria.service.UserService;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -15,7 +14,6 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("api/v1/user")
-@Tag(name = "User Controller", description = "User API")
 public class UserController implements UserApi {
 
     private final UserService userService;
