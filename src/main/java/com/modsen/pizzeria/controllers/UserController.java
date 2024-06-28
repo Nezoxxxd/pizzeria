@@ -1,7 +1,6 @@
 package com.modsen.pizzeria.controllers;
 
 import com.modsen.pizzeria.swagger.UserApi;
-import com.modsen.pizzeria.dto.request.CreateUserRequest;
 import com.modsen.pizzeria.dto.request.UpdateUserRequest;
 import com.modsen.pizzeria.dto.response.UserResponse;
 import com.modsen.pizzeria.service.UserService;
@@ -17,13 +16,6 @@ import java.util.List;
 public class UserController implements UserApi {
 
     private final UserService userService;
-
-    @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    @Override
-    public UserResponse createUser(@RequestBody @Valid CreateUserRequest createUserRequest){
-        return userService.createUser(createUserRequest);
-    }
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
