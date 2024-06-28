@@ -24,7 +24,7 @@ public class UserController implements UserApi {
             @PathVariable Long id,
             @RequestBody @Valid UpdateUserRequest updateUserRequest
     ){
-        return userService.updateUser(id,updateUserRequest);
+        return userService.updateUser(id, updateUserRequest);
     }
 
     @DeleteMapping("/{id}")
