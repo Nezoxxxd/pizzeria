@@ -1,6 +1,6 @@
 package com.modsen.pizzeria.service.impl;
 
-import com.modsen.pizzeria.auth.EmailMatchOrAdminAccess;
+import com.modsen.pizzeria.auth.annotations.EmailMatchOrAdminAccess;
 import com.modsen.pizzeria.domain.Role;
 import com.modsen.pizzeria.domain.RoleName;
 import com.modsen.pizzeria.domain.User;

@@ -1,5 +1,6 @@
 package com.modsen.pizzeria.service.impl;
 
+import com.modsen.pizzeria.auth.annotations.OrderOwnerOrAdminAccess;
 import com.modsen.pizzeria.config.SecurityUser;
 import com.modsen.pizzeria.domain.Order;
 import com.modsen.pizzeria.domain.OrderStatus;
@@ -36,10 +37,11 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    @OrderOwnerOrAdminAccess
     public OrderResponse updateOrder(Long id, UpdateOrderRequest updateOrderRequest) {
         Order existingOrder = findOrderByIdOrThrow(id);
+        validateStatusChange(existingOrder.getStatus(), updateOrderRequest.status());
         Order newOrder = orderMapper.toOrder(updateOrderRequest);
-
         existingOrder.setStatus(newOrder.getStatus());
         existingOrder.setOrderItems(newOrder.getOrderItems());
         existingOrder.getOrderItems().forEach(item -> item.setOrder(existingOrder));
@@ -50,12 +52,14 @@ public class OrderServiceImpl implements OrderService {
 
 
     @Override
+    @OrderOwnerOrAdminAccess
     public void deleteOrder(Long id) {
         Order order = findOrderByIdOrThrow(id);
         orderRepository.deleteById(id);
     }
 
     @Override
+    @OrderOwnerOrAdminAccess
     public OrderResponse getOrderById(Long id) {
         Order order = findOrderByIdOrThrow(id);
         return orderMapper.toOrderResponse(order);
@@ -78,7 +82,7 @@ public class OrderServiceImpl implements OrderService {
         if (orderStatus == OrderStatus.COMPLETED || orderStatus == OrderStatus.CANCELLED) {
             throw new InvalidOrderStatusException(ErrorMessages.COMPLETED_OR_CANCELLED_STATUS_MESSAGE);
         }
-        if (orderStatus == OrderStatus.PENDING && newOrderStatus != OrderStatus.PROCESSING) {
+            if (orderStatus == OrderStatus.PENDING && newOrderStatus != OrderStatus.PROCESSING) {
             throw new InvalidOrderStatusException(ErrorMessages.FROM_PENDING_TO_PROCESSING_STATUS_MESSAGE);
         }
         if (orderStatus == OrderStatus.PROCESSING && newOrderStatus == OrderStatus.PENDING) {

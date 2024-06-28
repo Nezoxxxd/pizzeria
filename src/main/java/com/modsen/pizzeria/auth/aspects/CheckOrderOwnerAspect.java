@@ -1,11 +1,10 @@
-package com.modsen.pizzeria.auth;
+package com.modsen.pizzeria.auth.aspects;
 
-import com.modsen.pizzeria.domain.RoleName;
-import com.modsen.pizzeria.domain.User;
+import com.modsen.pizzeria.domain.Order;
 import com.modsen.pizzeria.error.ErrorMessages;
 import com.modsen.pizzeria.exception.AccessDeniedException;
 import com.modsen.pizzeria.exception.ResourceNotFoundException;
-import com.modsen.pizzeria.repository.UserRepository;
+import com.modsen.pizzeria.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
@@ -21,24 +20,24 @@ import static com.modsen.pizzeria.domain.RoleName.ADMIN;
 @Aspect
 @Component
 @RequiredArgsConstructor
-public class CheckEmailMatchAspect {
+public class CheckOrderOwnerAspect {
 
-    private final UserRepository userRepository;
+    private final OrderRepository orderRepository;
 
-    @Pointcut("@annotation(com.modsen.pizzeria.auth.EmailMatchOrAdminAccess)")
-    public void checkEmailMatch() {
+    @Pointcut("@annotation(com.modsen.pizzeria.auth.annotations.OrderOwnerOrAdminAccess)")
+    public void checkOrderOwner() {
     }
 
-    @Before("checkEmailMatch() && args(userId,..)")
-    public void before(JoinPoint joinPoint, Long userId) {
+    @Before("checkOrderOwner() && args(orderId,..)")
+    public void before(JoinPoint joinPoint, Long orderId) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentUserEmail = authentication.getName();
         var userAuthorities = authentication.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority).toList();
-        User userToOperate = userRepository.findById(userId)
-                .orElseThrow(() -> new ResourceNotFoundException(String.format(ErrorMessages.RESOURCE_NOT_FOUND_MESSAGE, "User", userId)));
+        Order order = orderRepository.findById(orderId)
+                .orElseThrow(() -> new ResourceNotFoundException(String.format(ErrorMessages.RESOURCE_NOT_FOUND_MESSAGE, "Order", orderId)));
 
-        if (!currentUserEmail.equals(userToOperate.getEmail()) && !userAuthorities.contains("ROLE_" + ADMIN.name())) {
+        if (!currentUserEmail.equals(order.getUser().getEmail()) && !userAuthorities.contains("ROLE_" + ADMIN.name())) {
             throw new AccessDeniedException(ErrorMessages.ACCESS_DENIED_ERROR_MESSAGE);
         }
     }
