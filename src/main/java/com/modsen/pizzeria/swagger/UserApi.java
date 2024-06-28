@@ -17,15 +17,6 @@ import java.util.List;
 @Tag(name = "User Controller", description = "User API")
 public interface UserApi {
 
-    @Operation(summary = "Create User")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "201", description = "User created successfully", content = @Content(schema = @Schema(implementation = UserResponse.class))),
-            @ApiResponse(responseCode = "400", description = "Invalid input", content = @Content(schema = @Schema(implementation = AppError.class))),
-            @ApiResponse(responseCode = "409", description = "User already exists", content = @Content(schema = @Schema(implementation = AppError.class))),
-            @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content(schema = @Schema(implementation = AppError.class)))
-    })
-    UserResponse createUser(@RequestBody @Valid CreateUserRequest createUserRequest);
-
     @Operation(summary = "Update User")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "User updated successfully", content = @Content(schema = @Schema(implementation = UserResponse.class))),
