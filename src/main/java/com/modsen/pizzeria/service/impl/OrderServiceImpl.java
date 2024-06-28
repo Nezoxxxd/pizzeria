@@ -50,6 +50,15 @@ public class OrderServiceImpl implements OrderService {
         return orderMapper.toOrderResponse(updatedOrder);
     }
 
+    @Override
+    public OrderResponse updateStatus(Long id, OrderStatus newOrderStatus) {
+        Order order = findOrderByIdOrThrow(id);
+        validateStatusChange(order.getStatus(), newOrderStatus);
+
+        order.setStatus(newOrderStatus);
+        return orderMapper.toOrderResponse(orderRepository.save(order));
+    }
+
 
     @Override
     @OrderOwnerOrAdminAccess
@@ -82,7 +91,7 @@ public class OrderServiceImpl implements OrderService {
         if (orderStatus == OrderStatus.COMPLETED || orderStatus == OrderStatus.CANCELLED) {
             throw new InvalidOrderStatusException(ErrorMessages.COMPLETED_OR_CANCELLED_STATUS_MESSAGE);
         }
-            if (orderStatus == OrderStatus.PENDING && newOrderStatus != OrderStatus.PROCESSING) {
+        if (orderStatus == OrderStatus.PENDING && newOrderStatus != OrderStatus.PROCESSING) {
             throw new InvalidOrderStatusException(ErrorMessages.FROM_PENDING_TO_PROCESSING_STATUS_MESSAGE);
         }
         if (orderStatus == OrderStatus.PROCESSING && newOrderStatus == OrderStatus.PENDING) {
