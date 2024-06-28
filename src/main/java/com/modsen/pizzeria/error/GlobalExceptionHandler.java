@@ -2,9 +2,11 @@ package com.modsen.pizzeria.error;
 
 import com.modsen.pizzeria.dto.error.AppError;
 import com.modsen.pizzeria.dto.error.AppErrorCustom;
+import com.modsen.pizzeria.exception.AccessDeniedException;
 import com.modsen.pizzeria.exception.DuplicateResourceException;
 import com.modsen.pizzeria.exception.InvalidOrderStatusException;
 import com.modsen.pizzeria.exception.ResourceNotFoundException;
+import io.jsonwebtoken.ExpiredJwtException;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
 import org.springframework.http.HttpStatus;
@@ -30,6 +32,7 @@ public class GlobalExceptionHandler {
         return AppError.builder()
                 .status(HttpStatus.NOT_FOUND.value())
                 .message(e.getMessage())
+                .timestamp(LocalDateTime.now())
                 .build();
     }
 
@@ -71,6 +74,7 @@ public class GlobalExceptionHandler {
         return AppError.builder()
                 .status(HttpStatus.CONFLICT.value())
                 .message(e.getMessage())
+                .timestamp(LocalDateTime.now())
                 .build();
     }
 
@@ -80,6 +84,17 @@ public class GlobalExceptionHandler {
         return AppError.builder()
                 .status(HttpStatus.BAD_REQUEST.value())
                 .message(e.getMessage())
+                .timestamp(LocalDateTime.now())
+                .build();
+    }
+
+    @ExceptionHandler(AccessDeniedException.class)
+    @ResponseStatus(HttpStatus.FORBIDDEN)
+    public AppError handleAccessDeniedException(AccessDeniedException e) {
+        return AppError.builder()
+                .status(HttpStatus.FORBIDDEN.value())
+                .message(e.getMessage())
+                .timestamp(LocalDateTime.now())
                 .build();
     }
 }

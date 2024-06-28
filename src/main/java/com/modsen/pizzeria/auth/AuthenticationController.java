@@ -4,6 +4,7 @@ import com.modsen.pizzeria.dto.request.CreateUserRequest;
 import com.modsen.pizzeria.service.AuthenticationService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -21,7 +22,7 @@ public class AuthenticationController {
     @PostMapping("/register")
     @ResponseStatus(HttpStatus.OK)
     public AuthenticationResponse register(
-            @RequestBody CreateUserRequest request
+            @RequestBody @Valid CreateUserRequest request
     ) {
         return service.register(request);
     }
@@ -29,7 +30,7 @@ public class AuthenticationController {
     @PostMapping("/authenticate")
     @ResponseStatus(HttpStatus.OK)
     public AuthenticationResponse authenticate(
-            @RequestBody AuthenticationRequest request
+            @RequestBody @Valid AuthenticationRequest request
     ) {
         return service.authenticate(request);
     }
