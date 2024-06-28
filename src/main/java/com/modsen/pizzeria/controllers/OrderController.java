@@ -31,7 +31,7 @@ public class OrderController {
             @PathVariable Long id,
             @RequestBody @Valid UpdateOrderRequest updateOrderRequest
     ){
-        return orderService.updateOrder(id,updateOrderRequest);
+        return orderService.updateOrder(id, updateOrderRequest);
     }
 
     @PutMapping("/{id}/update-status")
@@ -40,7 +40,7 @@ public class OrderController {
             @PathVariable Long id,
             @RequestParam OrderStatus status
     ) {
-        return orderService.updateStatus(id,status);
+        return orderService.updateStatus(id, status);
     }
 
     @DeleteMapping("/{id}")
