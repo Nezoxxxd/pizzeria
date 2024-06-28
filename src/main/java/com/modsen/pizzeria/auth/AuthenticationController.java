@@ -1,5 +1,6 @@
 package com.modsen.pizzeria.auth;
 
+import com.modsen.pizzeria.swagger.AuthenticationApi;
 import com.modsen.pizzeria.dto.request.CreateUserRequest;
 import com.modsen.pizzeria.service.AuthenticationService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -8,19 +9,19 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-
 import java.io.IOException;
 
 
 @RestController
 @RequestMapping("/api/v1/auth")
 @RequiredArgsConstructor
-public class AuthenticationController {
+public class AuthenticationController implements AuthenticationApi {
 
     private final AuthenticationService service;
 
     @PostMapping("/register")
     @ResponseStatus(HttpStatus.OK)
+    @Override
     public AuthenticationResponse register(
             @RequestBody @Valid CreateUserRequest request
     ) {
@@ -29,6 +30,7 @@ public class AuthenticationController {
 
     @PostMapping("/authenticate")
     @ResponseStatus(HttpStatus.OK)
+    @Override
     public AuthenticationResponse authenticate(
             @RequestBody @Valid AuthenticationRequest request
     ) {
@@ -37,6 +39,7 @@ public class AuthenticationController {
 
     @PostMapping("/refresh-token")
     @ResponseStatus(HttpStatus.OK)
+    @Override
     public void refreshToken(
             HttpServletRequest request,
             HttpServletResponse response
