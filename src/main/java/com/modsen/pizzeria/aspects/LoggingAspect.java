@@ -15,8 +15,7 @@ import java.util.Arrays;
 @Slf4j
 public class LoggingAspect {
 
-    @Before("execution(* com.modsen.pizzeria.service.*.*(..)) && " +
-            "!execution(* com.modsen.pizzeria.service.JwtService.*(..))")
+    @Before("execution(* com.modsen.pizzeria.service.*.*(..))")
     public void logBefore(JoinPoint joinPoint) {
         log.info("Entering method: {} with arguments: {}",
                 joinPoint.getSignature(),
@@ -25,8 +24,7 @@ public class LoggingAspect {
     }
 
     @AfterReturning(
-            pointcut = "execution(* com.modsen.pizzeria.service.*.*(..)) && " +
-                    "!execution(* com.modsen.pizzeria.service.JwtService.*(..))",
+            pointcut = "execution(* com.modsen.pizzeria.service.*.*(..))",
             returning = "result"
     )
     public void logAfterReturning(JoinPoint joinPoint, Object result) {
@@ -37,8 +35,7 @@ public class LoggingAspect {
     }
 
     @AfterThrowing(
-            pointcut = "execution(* com.modsen.pizzeria.service.*.*(..)) && " +
-                    "!execution(* com.modsen.pizzeria.service.JwtService.*(..))",
+            pointcut = "execution(* com.modsen.pizzeria.service.*.*(..))",
             throwing = "exception"
     )
     public void logAfterThrowing(JoinPoint joinPoint, Throwable exception) {
