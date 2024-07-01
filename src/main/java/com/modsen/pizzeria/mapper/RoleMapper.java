@@ -1,4 +1,4 @@
-package com.modsen.pizzeria.mappers;
+package com.modsen.pizzeria.mapper;
 
 import com.modsen.pizzeria.domain.Role;
 import com.modsen.pizzeria.dto.request.RoleRequest;

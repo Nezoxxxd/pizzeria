@@ -7,7 +7,7 @@ import com.modsen.pizzeria.dto.request.UpdateCategoryRequest;
 import com.modsen.pizzeria.error.ErrorMessages;
 import com.modsen.pizzeria.exception.DuplicateResourceException;
 import com.modsen.pizzeria.exception.ResourceNotFoundException;
-import com.modsen.pizzeria.mappers.CategoryMapper;
+import com.modsen.pizzeria.mapper.CategoryMapper;
 import com.modsen.pizzeria.repository.CategoryRepository;
 import com.modsen.pizzeria.service.CategoryService;
 import lombok.RequiredArgsConstructor;

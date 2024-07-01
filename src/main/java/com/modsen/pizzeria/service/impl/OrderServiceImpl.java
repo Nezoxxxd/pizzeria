@@ -1,6 +1,6 @@
 package com.modsen.pizzeria.service.impl;
 
-import com.modsen.pizzeria.auth.annotations.OrderOwnerOrAdminAccess;
+import com.modsen.pizzeria.aspect.annotation.OrderOwnerOrAdminAccess;
 import com.modsen.pizzeria.config.SecurityUser;
 import com.modsen.pizzeria.domain.Order;
 import com.modsen.pizzeria.domain.OrderStatus;
@@ -10,7 +10,7 @@ import com.modsen.pizzeria.dto.request.UpdateOrderRequest;
 import com.modsen.pizzeria.error.ErrorMessages;
 import com.modsen.pizzeria.exception.InvalidOrderStatusException;
 import com.modsen.pizzeria.exception.ResourceNotFoundException;
-import com.modsen.pizzeria.mappers.OrderMapper;
+import com.modsen.pizzeria.mapper.OrderMapper;
 import com.modsen.pizzeria.repository.OrderRepository;
 import com.modsen.pizzeria.service.OrderService;
 import lombok.RequiredArgsConstructor;

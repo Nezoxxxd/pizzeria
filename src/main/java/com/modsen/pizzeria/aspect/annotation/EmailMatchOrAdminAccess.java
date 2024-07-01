@@ -1,4 +1,4 @@
-package com.modsen.pizzeria.auth.annotations;
+package com.modsen.pizzeria.aspect.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

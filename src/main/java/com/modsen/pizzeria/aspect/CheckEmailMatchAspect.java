@@ -1,4 +1,4 @@
-package com.modsen.pizzeria.auth.aspects;
+package com.modsen.pizzeria.aspect;
 
 import com.modsen.pizzeria.domain.User;
 import com.modsen.pizzeria.exception.AccessDeniedException;
@@ -25,7 +25,7 @@ public class CheckEmailMatchAspect {
 
     private final UserRepository userRepository;
 
-    @Pointcut("@annotation(com.modsen.pizzeria.auth.annotations.EmailMatchOrAdminAccess)")
+    @Pointcut("@annotation(com.modsen.pizzeria.aspect.annotation.EmailMatchOrAdminAccess)")
     public void checkEmailMatch() {
     }
 

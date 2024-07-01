@@ -1,7 +1,6 @@
-package com.modsen.pizzeria.auth.aspects;
+package com.modsen.pizzeria.aspect;
 
 import com.modsen.pizzeria.domain.Order;
-import com.modsen.pizzeria.error.ErrorMessages;
 import com.modsen.pizzeria.exception.AccessDeniedException;
 import com.modsen.pizzeria.exception.ResourceNotFoundException;
 import com.modsen.pizzeria.repository.OrderRepository;
@@ -26,7 +25,7 @@ public class CheckOrderOwnerAspect {
 
     private final OrderRepository orderRepository;
 
-    @Pointcut("@annotation(com.modsen.pizzeria.auth.annotations.OrderOwnerOrAdminAccess)")
+    @Pointcut("@annotation(com.modsen.pizzeria.aspect.annotation.OrderOwnerOrAdminAccess)")
     public void checkOrderOwner() {
     }
 

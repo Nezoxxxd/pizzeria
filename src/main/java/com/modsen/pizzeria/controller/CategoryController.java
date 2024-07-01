@@ -1,4 +1,4 @@
-package com.modsen.pizzeria.controllers;
+package com.modsen.pizzeria.controller;
 
 import com.modsen.pizzeria.swagger.CategoryApi;
 import com.modsen.pizzeria.dto.request.CreateCategoryRequest;
