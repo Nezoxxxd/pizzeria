@@ -1,6 +1,6 @@
 package com.modsen.pizzeria.service.impl;
 
-import com.modsen.pizzeria.auth.annotations.EmailMatchOrAdminAccess;
+import com.modsen.pizzeria.aspects.annotations.EmailMatchOrAdminAccess;
 import com.modsen.pizzeria.domain.User;
 import com.modsen.pizzeria.dto.response.UserResponse;
 import com.modsen.pizzeria.dto.request.UpdateUserRequest;

@@ -1,4 +1,4 @@
-package com.modsen.pizzeria.auth.annotations;
+package com.modsen.pizzeria.aspects.annotations;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -7,6 +7,5 @@ import java.lang.annotation.Target;
 
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface EmailMatchOrAdminAccess {
+public @interface OrderOwnerOrAdminAccess {
 }
-

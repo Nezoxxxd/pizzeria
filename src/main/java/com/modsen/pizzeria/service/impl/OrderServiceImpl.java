@@ -1,6 +1,6 @@
 package com.modsen.pizzeria.service.impl;
 
-import com.modsen.pizzeria.auth.annotations.OrderOwnerOrAdminAccess;
+import com.modsen.pizzeria.aspects.annotations.OrderOwnerOrAdminAccess;
 import com.modsen.pizzeria.config.SecurityUser;
 import com.modsen.pizzeria.domain.Order;
 import com.modsen.pizzeria.domain.OrderStatus;
