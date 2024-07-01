@@ -1,4 +1,4 @@
-package com.modsen.pizzeria.aspects;
+package com.modsen.pizzeria.aspect;
 
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;

@@ -1,12 +1,12 @@
 package com.modsen.pizzeria.service.impl;
 
-import com.modsen.pizzeria.aspects.annotations.EmailMatchOrAdminAccess;
+import com.modsen.pizzeria.aspect.annotation.EmailMatchOrAdminAccess;
 import com.modsen.pizzeria.domain.User;
 import com.modsen.pizzeria.dto.response.UserResponse;
 import com.modsen.pizzeria.dto.request.UpdateUserRequest;
 import com.modsen.pizzeria.error.ErrorMessages;
 import com.modsen.pizzeria.exception.ResourceNotFoundException;
-import com.modsen.pizzeria.mappers.UserMapper;
+import com.modsen.pizzeria.mapper.UserMapper;
 import com.modsen.pizzeria.repository.UserRepository;
 import com.modsen.pizzeria.service.UserService;
 import lombok.RequiredArgsConstructor;

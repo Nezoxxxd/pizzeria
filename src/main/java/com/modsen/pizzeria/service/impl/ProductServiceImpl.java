@@ -6,7 +6,7 @@ import com.modsen.pizzeria.dto.request.CreateProductRequest;
 import com.modsen.pizzeria.dto.request.UpdateProductRequest;
 import com.modsen.pizzeria.error.ErrorMessages;
 import com.modsen.pizzeria.exception.ResourceNotFoundException;
-import com.modsen.pizzeria.mappers.ProductMapper;
+import com.modsen.pizzeria.mapper.ProductMapper;
 import com.modsen.pizzeria.repository.ProductRepository;
 import com.modsen.pizzeria.service.ProductService;
 import lombok.RequiredArgsConstructor;
