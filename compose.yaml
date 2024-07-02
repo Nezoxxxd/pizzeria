@@ -1,5 +1,14 @@
 version: '3.8'
 services:
+  frontend:
+    container_name: angular-frontend
+    build:
+      context: ${FRONTEND_PROJECT_PATH}
+      dockerfile: Dockerfile
+    ports:
+      - ${ANGULAR_LOCAL_PORT}:${ANGULAR_DOCKER_PORT}
+    env_file: .env
+
   backend:
     container_name: spring-backend
     build: .
