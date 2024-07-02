@@ -10,10 +10,6 @@ import java.util.List;
 @Schema(description = "Create Order Request Dto")
 public record CreateOrderRequest(
 
-        @NotNull(message = "{order.user.notnull}")
-        @Schema(description = "User Id", example = "1")
-        User user,
-
         @NotNull(message = "{order.orderItems.notnull}")
         List<OrderItemRequest> orderItems
 
