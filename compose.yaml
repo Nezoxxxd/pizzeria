@@ -16,6 +16,13 @@ services:
       - $POSTGRESDB_LOCAL_PORT:$POSTGRESDB_DOCKER_PORT
     restart: unless-stopped
 
+  redis:
+    image: redis:6.2-alpine
+    container_name: redis_db
+    ports:
+      - $REDIS_LOCAL_PORT:$REDIS_DOCKER_PORT
+    command: redis-server --save 60 1 --loglevel warning --requirepass $REDIS_ROOT_PASSWORD
+
 volumes:
   postgres:
     driver: local

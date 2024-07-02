@@ -13,6 +13,8 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("api/v1/user")
+@CrossOrigin(origins = "http://localhost:4200")
+
 public class UserController implements UserApi {
 
     private final UserService userService;
