@@ -1,20 +1,49 @@
 version: '3.8'
 services:
+  frontend:
+    container_name: angular-frontend
+    build:
+      context: ${FRONTEND_PROJECT_PATH}
+      dockerfile: Dockerfile
+    ports:
+      - ${ANGULAR_LOCAL_PORT}:${ANGULAR_DOCKER_PORT}
+    env_file: .env
+
+  backend:
+    container_name: spring-backend
+    build: .
+    ports:
+      - ${SPRING_LOCAL_PORT}:${SPRING_DOCKER_PORT}
+    env_file: .env
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres-sql-bsn:${POSTGRESDB_DOCKER_PORT}/${POSTGRESDB_DATABASE}
+      SPRING_DATASOURCE_USERNAME: ${POSTGRESDB_USER}
+      SPRING_DATASOURCE_PASSWORD: ${POSTGRESDB_ROOT_PASSWORD}
+    depends_on:
+      - postgres
+
   postgres:
     container_name: postgres-sql-bsn
     image: postgres:16
     env_file: ./.env
     environment:
-      POSTGRES_USER: $POSTGRESDB_USER
-      POSTGRES_PASSWORD: $POSTGRESDB_ROOT_PASSWORD
+      POSTGRES_USER: ${POSTGRESDB_USER}
+      POSTGRES_PASSWORD: ${POSTGRESDB_ROOT_PASSWORD}
       PGDATA: /var/lib/postgresql/data
-      POSTGRES_DB: $POSTGRESDB_DATABASE
+      POSTGRES_DB: ${POSTGRESDB_DATABASE}
     volumes:
       - postgres:/data/postgres
       - ./docker/db-init:/docker-entrypoint-initdb.d
     ports:
-      - $POSTGRESDB_LOCAL_PORT:$POSTGRESDB_DOCKER_PORT
+      - ${POSTGRESDB_LOCAL_PORT}:${POSTGRESDB_DOCKER_PORT}
     restart: unless-stopped
+
+  redis:
+    image: redis:6.2-alpine
+    container_name: redis_db
+    ports:
+      - ${REDIS_LOCAL_PORT}:${REDIS_DOCKER_PORT}
+    command: redis-server --save 60 1 --loglevel warning --requirepass ${REDIS_ROOT_PASSWORD}
 
 volumes:
   postgres:
