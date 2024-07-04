@@ -1,20 +1,23 @@
 package com.modsen.pizzeria.auth;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.modsen.pizzeria.config.SecurityUser;
 import com.modsen.pizzeria.domain.Role;
 import com.modsen.pizzeria.domain.RoleName;
 import com.modsen.pizzeria.domain.User;
 import com.modsen.pizzeria.dto.request.CreateUserRequest;
+import com.modsen.pizzeria.dto.response.UserResponse;
 import com.modsen.pizzeria.error.ErrorMessages;
 import com.modsen.pizzeria.exception.DuplicateResourceException;
 import com.modsen.pizzeria.exception.ResourceNotFoundException;
+import com.modsen.pizzeria.mappers.UserMapper;
+import com.modsen.pizzeria.redis.RedisService;
 import com.modsen.pizzeria.repository.RoleRepository;
 import com.modsen.pizzeria.repository.UserRepository;
 import com.modsen.pizzeria.service.AuthenticationService;
 import com.modsen.pizzeria.service.JwtService;
 import com.modsen.pizzeria.token.Token;
-import com.modsen.pizzeria.token.TokenRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -34,22 +37,23 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     private final RoleRepository roleRepository;
     private final UserRepository userRepository;
-    private final TokenRepository tokenRepository;
     private final JwtService jwtService;
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
+    private final RedisService redisService;
+    private final UserMapper userMapper;
 
     @Override
-    public AuthenticationResponse register(CreateUserRequest request) {
+    public AuthenticationResponse register(CreateUserRequest request) throws JsonProcessingException {
         checkUserExistence(request.email());
 
         Role defaultRole = findRoleByName(RoleName.CUSTOMER);
         UserDetails userDetails = buildUser(request, defaultRole);
 
-        User savedUser = userRepository.save(((SecurityUser) userDetails).getUser());
+        UserResponse savedUser = userMapper.toUserResponse(userRepository.save(((SecurityUser)userDetails).getUser()));
         String accessToken = jwtService.generateToken(userDetails);
         String refreshToken = jwtService.generateRefreshToken(userDetails);
-        saveUserToken(savedUser, accessToken);
+        saveUserToken(savedUser, accessToken); //!!!!!!!!!!!
 
         return AuthenticationResponse.builder()
                 .accessToken(accessToken)
@@ -58,7 +62,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     }
 
     @Override
-    public AuthenticationResponse authenticate(AuthenticationRequest request) {
+    public AuthenticationResponse authenticate(AuthenticationRequest request) throws JsonProcessingException {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(request.email(), request.password())
         );
@@ -68,7 +72,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         String accessToken = jwtService.generateToken(userDetails);
         String refreshToken = jwtService.generateRefreshToken(userDetails);
         revokeAllUserTokens(user);
-        saveUserToken(user, accessToken);
+        saveUserToken(userMapper.toUserResponse(user), accessToken);
         return AuthenticationResponse.builder()
                 .accessToken(accessToken)
                 .refreshToken(refreshToken)
@@ -96,7 +100,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
                 String newAccessToken = jwtService.generateToken(userDetails);
                 String newRefreshToken = jwtService.generateRefreshToken(userDetails);
                 revokeAllUserTokens(user);
-                saveUserToken(user, newAccessToken);
+                saveUserToken(userMapper.toUserResponse(user), newAccessToken);
 
                 authResponse = AuthenticationResponse.builder()
                         .accessToken(newAccessToken)
@@ -108,18 +112,15 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         }
     }
 
-    private void saveUserToken(User user, String accessToken) {
-        Token token = Token.builder()
-                .user(user)
-                .token(accessToken)
-                .expired(false)
-                .revoked(false)
-                .build();
-        tokenRepository.save(token);
+    private void saveUserToken(UserResponse user, String accessToken) throws JsonProcessingException {
+        Token token = new Token(accessToken,false,false);
+        redisService.saveToken(user.id(), token);
     }
 
+
+
     private void revokeAllUserTokens(User user) {
-        List<Token> validUserTokens = tokenRepository.findAllValidTokenByUser(user.getId());
+        List<Token> validUserTokens = RedisService.findAllValidTokenByUser(user.getId());
         if (validUserTokens.isEmpty()) {
             return;
         }
@@ -127,7 +128,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
             token.setExpired(true);
             token.setRevoked(true);
         });
-        tokenRepository.saveAll(validUserTokens);
+        RedisService.saveAll(validUserTokens);
     }
 
     private Role findRoleByName(RoleName roleName) {

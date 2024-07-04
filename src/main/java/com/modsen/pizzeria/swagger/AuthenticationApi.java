@@ -1,5 +1,6 @@
 package com.modsen.pizzeria.swagger;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.modsen.pizzeria.auth.AuthenticationRequest;
 import com.modsen.pizzeria.auth.AuthenticationResponse;
 import com.modsen.pizzeria.dto.error.AppError;
@@ -25,7 +26,7 @@ public interface AuthenticationApi {
             @ApiResponse(responseCode = "409", description = "User already exists", content = @Content(schema = @Schema(implementation = AppError.class))),
             @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content(schema = @Schema(implementation = AppError.class)))
     })
-    AuthenticationResponse register(@RequestBody CreateUserRequest request);
+    AuthenticationResponse register(@RequestBody CreateUserRequest request) throws JsonProcessingException;
 
     @Operation(summary = "Authentication")
     @ApiResponses(value = {
@@ -34,7 +35,7 @@ public interface AuthenticationApi {
             @ApiResponse(responseCode = "401", description = "Unauthorized", content = @Content(schema = @Schema(implementation = AppError.class))),
             @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content(schema = @Schema(implementation = AppError.class)))
     })
-    AuthenticationResponse authenticate(@RequestBody AuthenticationRequest request);
+    AuthenticationResponse authenticate(@RequestBody AuthenticationRequest request) throws JsonProcessingException;
 
     @Operation(summary = "Refresh Token")
     @ApiResponses(value = {

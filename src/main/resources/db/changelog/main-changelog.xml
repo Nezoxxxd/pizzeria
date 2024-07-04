@@ -28,10 +28,10 @@
         <tagDatabase tag="v4.0"/>
     </changeSet>
 
-    <include file="v5/v5-accumulate-changelog.xml" relativeToChangelogFile="true"/>
+<!--    <include file="v5/v5-accumulate-changelog.xml" relativeToChangelogFile="true"/>-->
 
-    <changeSet id="5" author="Voropay Matvey">
-        <tagDatabase tag="v5.0"/>
-    </changeSet>
+<!--    <changeSet id="5" author="Voropay Matvey">-->
+<!--        <tagDatabase tag="v5.0"/>-->
+<!--    </changeSet>-->
 
 </databaseChangeLog>

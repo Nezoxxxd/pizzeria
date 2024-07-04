@@ -1,7 +1,7 @@
 package com.modsen.pizzeria.config;
 
+import com.modsen.pizzeria.redis.RedisService;
 import com.modsen.pizzeria.service.JwtService;
-import com.modsen.pizzeria.token.TokenRepository;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -26,7 +26,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private final JwtService jwtService;
     private final UserDetailsService userDetailsService;
-    private final TokenRepository tokenRepository;
+    private final RedisService redisService;
 
     @Override
     protected void doFilterInternal(
@@ -52,7 +52,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         userEmail = jwtService.extractUserEmail(jwtToken);
         if(userEmail != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             UserDetails userDetails = this.userDetailsService.loadUserByUsername(userEmail);
-            boolean isTokenValid = tokenRepository.findByToken(jwtToken)
+            boolean isTokenValid = redisService.findByToken(jwtToken)
                     .map(t -> !t.isExpired() || !t.isRevoked())
                     .orElse(false);
 

@@ -1,5 +1,6 @@
 package com.modsen.pizzeria.auth;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.modsen.pizzeria.swagger.AuthenticationApi;
 import com.modsen.pizzeria.dto.request.CreateUserRequest;
 import com.modsen.pizzeria.service.AuthenticationService;
@@ -24,7 +25,7 @@ public class AuthenticationController implements AuthenticationApi {
     @Override
     public AuthenticationResponse register(
             @RequestBody @Valid CreateUserRequest request
-    ) {
+    ) throws JsonProcessingException {
         return service.register(request);
     }
 
@@ -33,7 +34,7 @@ public class AuthenticationController implements AuthenticationApi {
     @Override
     public AuthenticationResponse authenticate(
             @RequestBody @Valid AuthenticationRequest request
-    ) {
+    ) throws JsonProcessingException {
         return service.authenticate(request);
     }
 
