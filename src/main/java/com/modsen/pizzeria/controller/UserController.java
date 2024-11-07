@@ -4,6 +4,7 @@ import com.modsen.pizzeria.swagger.UserApi;
 import com.modsen.pizzeria.dto.request.UpdateUserRequest;
 import com.modsen.pizzeria.dto.response.UserResponse;
 import com.modsen.pizzeria.service.UserService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -46,6 +47,13 @@ public class UserController implements UserApi {
     @Override
     public List<UserResponse> getAllUsers(){
         return userService.getAllUsers();
+    }
+
+    @GetMapping("/me")
+    @ResponseStatus(HttpStatus.OK)
+    @Override
+    public UserResponse me(HttpServletRequest request) {
+        return userService.me(request);
     }
 
 }

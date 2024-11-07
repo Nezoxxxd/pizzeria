@@ -20,6 +20,7 @@ import org.springframework.security.web.authentication.logout.LogoutHandler;
 
 
 import static com.modsen.pizzeria.domain.RoleName.ADMIN;
+import static com.modsen.pizzeria.domain.RoleName.CUSTOMER;
 import static org.springframework.http.HttpMethod.*;
 import static org.springframework.security.config.Customizer.withDefaults;
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
@@ -62,7 +63,8 @@ public class SecurityConfiguration {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .cors(withDefaults())
+                //.cors(withDefaults())
+                .cors(AbstractHttpConfigurer::disable)
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(req -> req
                         .requestMatchers("/api/v1/auth/**").permitAll()
@@ -73,6 +75,7 @@ public class SecurityConfiguration {
                         .requestMatchers(DELETE, ADMIN_URL).hasRole(ADMIN.name())
                         .requestMatchers(GET,"/api/v1/user").hasRole(ADMIN.name())
                         .requestMatchers(GET,"/api/v1/order").hasRole(ADMIN.name())
+                        .requestMatchers(GET, "/api/v1/user/me").hasRole(CUSTOMER.name())
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(STATELESS))
